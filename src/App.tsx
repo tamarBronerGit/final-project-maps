@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-// import logo from './logo.svg';
-import './App.css';
-import List from './components/user';
+import React from "react";
+
+
 
 
 function App() {
-
   return (
-    <div className="App">
-      <List/>
-    </div>
+    <>
+      <h1>Firebase Auth Tutorial</h1>
+      
+    </>
   );
 }
 
