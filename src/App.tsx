@@ -1,15 +1,21 @@
-import React from "react";
 
+import * as React from 'react'
+import './App.css';
+import List from './components/user';
+import Home from './components/home-system';
 
+import { Route, Router, Routes } from 'react-router-dom';
 
 
 function App() {
-  return (
-    <>
-      <h1>Firebase Auth Tutorial</h1>
+    return (
+    <div className="app">
       
-    </>
-  );
+          <List/>
+    </div>
+      
+    );
+    
 }
 
 export default App;
