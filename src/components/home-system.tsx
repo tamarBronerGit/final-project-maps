@@ -27,17 +27,16 @@ const Home=()=>{
          console.log(data);
          setSystems(data.data);
      }
-     
 
     const renderHome=(): JSX.Element[]=>{
         return systems.map(system=>{
             return(
                 <div>
-                    <th>id: {system._id}</th>  
-                    <tr>firstName: {system.managerUid}</tr>
-                    <tr>lastName: {system.objectName}</tr>
-                    <tr>email: {system.topic}</tr>
-                    <br/>
+                        <ul>id: {system._id}</ul>  
+                        <li>firstName: {system.managerUid}</li>
+                        <li>lastName: {system.objectName}</li>
+                        <li>email: {system.topic}</li>
+                        <br/>
                 </div>
             )
         })
