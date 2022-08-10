@@ -1,5 +1,4 @@
 import React from "react";
-import { getAllUsersFromServer } from '../data/api';
 import {useEffect, useState} from "react"
 import axios from "axios";
 
