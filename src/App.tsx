@@ -1,3 +1,4 @@
+import * as React from 'react'
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import  Home  from './components/home-system'
@@ -6,7 +7,7 @@ import  List  from './components/user'
 function App() {
   return (
     <div className="app">
-      {/* <Home/> */}
+      
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
