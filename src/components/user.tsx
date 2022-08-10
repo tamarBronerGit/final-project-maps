@@ -5,9 +5,12 @@ import axios from "axios";
 
 interface User{
     _id: string
-    name: string
-    email: string
-    password: string
+    uid:string;
+    role: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+    email: string;
     _v:number
 }
 
@@ -28,16 +31,13 @@ const List=()=>{
         return users.map(user=>{
             return(
                 <div>
-                    <h1>id: {user._id}</h1>  
-                    <h1>name: {user.name}</h1>
-                    <h1>email: {user.email}</h1>
-                    <h1>password: {user.password}</h1>
+                    <th>id: {user._id}</th>  
+                    <tr>firstName: {user.firstName}</tr>
+                    <tr>lastName: {user.lastName}</tr>
+                    <tr>email: {user.email}</tr>
                     <br/>
                 </div>
-              
-               
             )
-
         })
     }
    return(
