@@ -42,7 +42,7 @@ const Home = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            image="../images/צילום מסך 2022-08-10 144018.png"
+                            image={system?.urlName}
                             alt="green iguana"
                         />
                         <CardContent>
@@ -55,6 +55,7 @@ const Home = () => {
                                     <tr>managerUid: {system.managerUid}</tr>
                                     <tr>objectName: {system.objectName}</tr>
                                     <tr>description:{system.description}</tr>
+                                    
                                     <br />
                                 </div>
                             </Typography>
