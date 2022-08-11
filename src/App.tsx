@@ -7,13 +7,12 @@ import  List  from './components/user'
 function App() {
   return (
     <div className="app">
-      
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/user" element={<List />} />
-        </Routes>
-      </Router>
+       <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/user" element={<List />} />
+          </Routes>
+       </Router>
     </div>
   );
 }
