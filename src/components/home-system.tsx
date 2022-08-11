@@ -4,9 +4,11 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import axios from "axios";
+import { BasicButtons } from "./addSystem";
 
 interface System {
     _id: string;
@@ -34,10 +36,10 @@ const Home = () => {
         setSystems(data.data);
     }
 
-
     const renderHome = (): JSX.Element[] => {
         return systems.map(system => {
             return (
+                <div>
                 <div>
                     <Card sx={{ maxWidth: 345 }}>
                         <CardMedia
@@ -66,16 +68,22 @@ const Home = () => {
 
                         </CardActions>
                     </Card>
-
+                </div>
+               
                 </div>
             );
         });
     }
 
     return (
-        <ul>
-            {renderHome()}
-        </ul>
+        <div>
+            <ul>
+                <BasicButtons/>
+             {renderHome()}
+            </ul>
+            
+        </div>
+        
     )
 }
 
