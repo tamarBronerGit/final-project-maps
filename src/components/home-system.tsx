@@ -13,6 +13,7 @@ interface System {
     uid: string;
     topic: string;
     urlName: string;
+    urlImage: string;
     objectName: string;
     managerUid: string;
     description: string;
@@ -42,7 +43,7 @@ const Home = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            image={system?.urlName}
+                            image={system?.urlImage}
                             alt="green iguana"
                         />
                         <CardContent>
