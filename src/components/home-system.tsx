@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import axios from "axios";
-import { BasicButtons } from "./addSystem";
+import { FormDialog } from "./addSystem";
 
 interface System {
     _id: string;
@@ -45,6 +45,7 @@ const Home = () => {
                         <CardMedia
                             component="img"
                             height="140"
+
                             image={system?.urlImage}
                             alt="green iguana"
                         />
@@ -78,7 +79,7 @@ const Home = () => {
     return (
         <div>
             <ul>
-                <BasicButtons/>
+                <FormDialog/>
              {renderHome()}
             </ul>
             
