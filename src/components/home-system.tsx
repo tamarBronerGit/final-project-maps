@@ -8,13 +8,14 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import axios from "axios";
-import { BasicButtons } from "./addSystem";
+import { FormDialog } from "./addSystem";
 
 interface System {
     _id: string;
     uid: string;
     topic: string;
     urlName: string;
+    urlImage: string;
     objectName: string;
     managerUid: string;
     description: string;
@@ -44,7 +45,7 @@ const Home = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            image="../images/צילום מסך 2022-08-10 144018.png"
+                            image={system.urlImage}
                             alt="green iguana"
                         />
                         <CardContent>
@@ -76,7 +77,7 @@ const Home = () => {
     return (
         <div>
             <ul>
-                <BasicButtons/>
+                <FormDialog/>
              {renderHome()}
             </ul>
             
