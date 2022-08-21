@@ -45,6 +45,7 @@ const Home = () => {
           headers: { }
         };
 
+<<<<<<< HEAD
         axios(config)
         .then(function (response) {
             console.log("delete successful")
@@ -52,6 +53,45 @@ const Home = () => {
         })
         .catch(function (error) {
           console.log(error);
+=======
+    const renderHome = (): JSX.Element[] => {
+        return systems.map(system => {
+            return (
+                <div>
+                <div>
+                    <Card sx={{ maxWidth: 345 }}>
+                        <CardMedia
+                            component="img"
+                            height="140"
+
+                            image={system?.urlImage}
+                            alt="green iguana"
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">
+                                <div>{system.topic}</div>
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                <div>
+                                    <th>id: {system._id}</th>
+                                    <tr>managerUid: {system.managerUid}</tr>
+                                    <tr>objectName: {system.objectName}</tr>
+                                    <tr>description:{system.description}</tr>
+                                    
+                                    <br />
+                                </div>
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button size="small">Show user</Button>
+
+                        </CardActions>
+                    </Card>
+                </div>
+               
+                </div>
+            );
+>>>>>>> d46cd9afc113a9124a0230d97f25049c7917be11
         });
     }
 
