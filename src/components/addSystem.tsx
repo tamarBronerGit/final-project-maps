@@ -9,10 +9,20 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
 import axios from 'axios'
+import { InputBaseComponentProps } from '@mui/material';
+import { useRef } from 'react';
 
 export function FormDialog() {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState('');
+    
+    const inputTopic=useRef<HTMLInputElement>();
+    const inputUrlName =useRef<HTMLInputElement>();
+    const inputUrlImage =useRef<HTMLInputElement>();
+    const inputObjectName=useRef<HTMLInputElement>();
+    const inputManagerUid=useRef<HTMLInputElement>();
+    const inputDescription=useRef<HTMLInputElement>();
+    const inputCommunicationDetails=useRef<HTMLInputElement>();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
@@ -25,23 +35,22 @@ export function FormDialog() {
         setOpen(false);
     };
     const addSystem= async()=>{
-        alert('add');
-            const dataSystem={
-                "topic":"ssssss",
-                "urlName": "string",
-                "urlImage": "string",
-                "objectName": "string",
-                "managerUid": "string",
-                "description": "string",
-                "communicationDetails":"Object"
-               }
-               console.log(dataSystem)
+
+        const dataSystem={
+            topic:inputTopic.current?.value,
+            urlName: inputUrlName.current?.value,
+            urlImage: inputUrlImage.current?.value,
+            objectName: inputObjectName.current?.value,
+            managerUid: inputManagerUid.current?.value,
+            description:inputDescription.current?.value,
+            communicationDetails:inputCommunicationDetails.current?.value
+           }
+           console.log(dataSystem)
         try {     
             const res = await axios.post(`http://localhost:3333/system/`,dataSystem);
             let tempList = await res.data;
             console.log(res)
-            // swal("your system added!!", "You clicked the button!", "success");
-        //    setSystems(tempList);
+            alert(`add ${dataSystem.topic}successfully`);
         } catch (error) { console.log(error); }
         finally{setOpen(false);}
         
@@ -66,24 +75,13 @@ export function FormDialog() {
                         autoComplete="off">
                         
                         <div>
-                            <TextField
-                                id="name"
-                                label="enter name system"
-                                placeholder="name system"
-                                variant="standard"
-                            />
-                            <TextField
-                                id="topic"
-                                label="enter topic system"
-                                placeholder="topic system"
-                                variant="standard"
-                            />
-                            <TextField
-                                id="des"
-                                label="enter description system"
-                                placeholder="description system"
-                                variant="standard"
-                            />
+                            <TextField inputRef={inputTopic}               label="enter topic system"               placeholder="topic system"                variant="standard" />
+                            <TextField inputRef={inputUrlName }            label="enter UrlName system"             placeholder="UrlName system "             variant="standard" />
+                            <TextField inputRef={inputUrlImage}            label="enter UrlImage system"            placeholder="UrlImage system"             variant="standard" />
+                            <TextField inputRef={inputObjectName}          label="enter ObjectName system"          placeholder="ObjectName system"           variant="standard" />
+                            <TextField inputRef={inputManagerUid}          label="enter ManagerUid system"          placeholder="ManagerUid system"           variant="standard" />
+                            <TextField inputRef={inputDescription}         label="enter Description system"         placeholder="Description system"          variant="standard" />
+                            <TextField inputRef={inputCommunicationDetails}label="enter CommunicationDetails system"placeholder="CommunicationDetails system" variant="standard" />
                         </div>
                     </Box>
                 </DialogContent>
