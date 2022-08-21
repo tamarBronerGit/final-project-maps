@@ -1,0 +1,10 @@
+
+
+#divAllCards{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    color:aquamarine;
+    width: 70%;
+
+}
