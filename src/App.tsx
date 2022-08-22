@@ -1,16 +1,21 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from './components/Login';
+import SignUpPage from './components/SingUp';
 // import BasicButtons from './components/addSystem';
-import  Home  from './components/home-system'
-import ShowSystem from './components/showSystem';
-import  List  from './components/user'
+import  Home  from './components/system/home-system'
+import ShowSystem from './components/system/showSystem';
+import  List  from './components/userPage'
 
 function App() {
   return (
     <div className="app">
        <Router>
           <Routes>
-            <Route path="/" element={<Home />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/signUp" element={<SignUpPage />} />
+
+            <Route path="/home" element={<Home />} />
             <Route path="/user" element={<List />} />
             {/* <Route path="/details" element={<ShowSystem />} /> */}
           </Routes>

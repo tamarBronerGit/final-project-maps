@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import axios from "axios";
 import { FormDialog } from "./addSystem";
-import '../css/app.css'
+import '../../css/app.css'
 import showSystem from "./showSystem";
 
 
