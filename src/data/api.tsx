@@ -1,5 +1,4 @@
 import axios from 'axios';
-import User from '../components/user';
 
 export const getAllUsersFromServer = async () => {
     try {
