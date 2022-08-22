@@ -2,6 +2,7 @@ import * as React from 'react'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import BasicButtons from './components/addSystem';
 import  Home  from './components/home-system'
+import ShowSystem from './components/showSystem';
 import  List  from './components/user'
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/user" element={<List />} />
+            {/* <Route path="/details" element={<ShowSystem />} /> */}
           </Routes>
        </Router>
     </div>

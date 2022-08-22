@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import axios from "axios";
 import { FormDialog } from "./addSystem";
 import '../css/app.css'
+import showSystem from "./showSystem";
 
 
 interface System {
@@ -54,6 +55,9 @@ const Home = () => {
           console.log(error);
         })
     }
+    const ShowDetails= async (id:string) => {
+        showSystem(id);
+    }
 
     const renderHome=()=>{
         return (
@@ -69,19 +73,14 @@ const Home = () => {
                                 <Typography variant="body2" color="text.secondary">
                                     <div>
                                         <th>id: {system._id}</th>
-                                        <tr>topic system               :{system.topic}</tr>            
-                                        <tr>UrlName system             :{system.urlName}</tr>         
-                                        <tr>UrlImage system            :{system.urlImage}</tr>           
-                                        <tr>ObjectName system          :{system.objectName}</tr>        
-                                        <tr>ManagerUid system          :{system.managerUid}</tr>        
-                                        <tr>Description system         :{system.description}</tr>        
-                                        {/* <tr>CommunicationDetails system:{system.communicationDetails}</tr> */}
+                                        <tr>topic       :{system.topic}</tr>           
+                                        <tr>ObjectName  :{system.objectName}</tr> 
                                         <br /> 
                                     </div>
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small">Show user</Button>
+                                <Button size="small" onClick={()=>ShowDetails(system._id)}>Show details</Button>
                                 <Button size="small" onClick={()=>DeleteSystem(system._id)}>Delete this system</Button>
                             </CardActions>
                         </Card>
