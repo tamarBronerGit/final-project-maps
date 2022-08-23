@@ -64,7 +64,7 @@ const Home = () => {
              <div id="divAllCards"> { systems.map(system => {
                 return (
                     <div>
-                        <Card sx={{ maxWidth: 350 }}>
+                        <Card sx={{ maxWidth: 340 }}>
                             <CardMedia component="img" height="150" image={system.urlImage} alt="green iguana" />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
