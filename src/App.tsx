@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from './components/Login';
-import Maps from './components/Maps';
+import Auto from './components/Maps';
 import SignUpPage from './components/SingUp';
 // import BasicButtons from './components/addSystem';
 import  Home  from './components/system/home-system'
@@ -9,13 +9,15 @@ import ShowSystem from './components/system/showSystem';
 import  List  from './components/userPage'
 
 function App() {
+
   return (
     <div className="app">
+      
        <Router>
           <Routes>
-          {/* <Route path="/" element={<Login />} /> */}
+          <Route path="/" element={<Login />} />
           <Route path="/signUp" element={<SignUpPage />} />
-         <Route path="/"element={<Maps/>} />
+         <Route path="/maps"element={<Auto/>} />
             <Route path="/home" element={<Home />} />
             <Route path="/user" element={<List />} />
             {/* <Route path="/details" element={<ShowSystem />} /> */}
