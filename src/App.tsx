@@ -19,6 +19,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/user" element={<List />} />
             {/* <Route path="/details" element={<ShowSystem />} /> */}
+            
           </Routes>
        </Router>
     </div>

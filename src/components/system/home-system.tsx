@@ -80,7 +80,7 @@ const Home = () => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small" onClick={()=>ShowDetails(system._id)}>Show details</Button>
+                                {/* <Button size="small" onClick={()=>ShowDetails(system._id)}>Show details</Button> */}
                                 <Button size="small" onClick={()=>DeleteSystem(system._id)}>Delete this system</Button>
                             </CardActions>
                         </Card>
