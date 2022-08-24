@@ -11,6 +11,8 @@ import axios from "axios";
 import { FormDialog } from "./addSystem";
 import '../../css/app.css'
 import showSystem from "./showSystem";
+import { useNavigate } from 'react-router-dom';
+
 
 
 interface System {
@@ -26,6 +28,7 @@ interface System {
     _v: number
 }
 const Home = () => {
+    const navigate = useNavigate();
 
     const [systems, setSystems] = useState<System[]>([]);
 
@@ -56,7 +59,8 @@ const Home = () => {
         })
     }
     const ShowDetails= async (id:string) => {
-        showSystem(id);
+        // navigate(`/ShowSystem/hello/${systems.urlName}/${systems._id}`)
+        showSystem();
     }
 
     const renderHome=()=>{
@@ -64,7 +68,7 @@ const Home = () => {
              <div id="divAllCards"> { systems.map(system => {
                 return (
                     <div>
-                        <Card sx={{ maxWidth: 350 }}>
+                        <Card sx={{ maxWidth: 340 }}>
                             <CardMedia component="img" height="150" image={system.urlImage} alt="green iguana" />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
@@ -80,7 +84,11 @@ const Home = () => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
+<<<<<<< HEAD
                                 {/* <Button size="small" onClick={()=>ShowDetails(system._id)}>Show details</Button> */}
+=======
+                                <Button size="small" onClick={()=> navigate(`/ShowSystem/${system.urlName}/${system._id}`)}>Show system</Button>
+>>>>>>> 83641428192533be7b1593d7585f681209a375f4
                                 <Button size="small" onClick={()=>DeleteSystem(system._id)}>Delete this system</Button>
                             </CardActions>
                         </Card>
