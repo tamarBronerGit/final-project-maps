@@ -15,12 +15,13 @@ function App() {
       
        <Router>
           <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/signUp" element={<SignUpPage />} />
-         <Route path="/maps"element={<Auto/>} />
+            <Route path="/" element={<Login />} />
+            <Route path="/signUp" element={<SignUpPage />} />
+            <Route path="/maps"element={<Auto/>} />
             <Route path="/home" element={<Home />} />
+       
+            <Route path="/ShowSystem/:name/:id" element={< ShowSystem/>} />
             <Route path="/user" element={<List />} />
-            {/* <Route path="/details" element={<ShowSystem />} /> */}
           </Routes>
        </Router>
     </div>
