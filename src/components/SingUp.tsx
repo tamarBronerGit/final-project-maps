@@ -37,6 +37,7 @@ import axios from 'axios';
   //     createInMongo();
   // }
    const createUser= async (newUser:User) => {
+    console.log(error);
     try {
         const user= await axios.post('http://localhost:3333/user/', newUser);
         console.log(user.data);
