@@ -1,8 +1,7 @@
 import { Circle, GoogleMap, Marker, MarkerClusterer, useLoadScript } from "@react-google-maps/api";
 import { useCallback, useMemo, useRef, useState } from "react";
-// import '../styles/search.css';
 import AutoComplete from "./AutoComplete";
-// }
+
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectiosResult = google.maps.DirectionsResult;
 type MapOptions = google.maps.MapOptions;
@@ -14,16 +13,10 @@ export default function Map() {
   const center = useMemo<LatLngLiteral>(() => ({ lat: 32, lng: 35 }), []);
   const JerusalemPosition = useMemo<LatLngLiteral>(() => ({ lat: 31.771959, lng: 35.217018 }), []);
   const options = useMemo<MapOptions>(() => ({
-    // mapId: "AIzaSyBL9SengOBv22kYKJDCPRUSvgt_orH7q0M",
     disableDefaultUi: true,
     clickableIcons: true,
   }), []);
 
-  // const { isLoaded } = useLoadScript({
-  //   googleMapsApiKey: "AIzaSyDMuHvUyS3JFJ85UXef9xNKex631FzsSU0",
-  //   libraries: ["places"],
-  // }
-  // )
   const optionsMarker = {
     imagePath:
       'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m', // so you must have m1.png, m2.png, m3.png, m4.png, m5.png and m6.png in that folder
@@ -68,17 +61,9 @@ export default function Map() {
       >
         {office &&  (
         <>
-        // icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
        
         <Marker position={office} />
 
-        {/* <MarkerClusterer> */}
-          {/* {(clusterer)=>{
-            houses.map((house)=>(
-              <Marker key={house.lat} position={house}/>
-            )
-          }} */}
-        {/* </MarkerClusterer> */}
         <Circle center={office} radius={15000} options = { closeOptions }/>
         <Circle center={office} radius={30000} options = { middleOptions }/>
         <Circle center={office} radius={45000} options = { farOptions }/>
