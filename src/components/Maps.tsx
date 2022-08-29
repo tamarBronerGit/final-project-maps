@@ -26,9 +26,7 @@ import useOnclickOutside from "react-cool-onclickoutside";
       setValue(e.target.value);
     };
   
-    const handleSelect =
-      ( description:any ) =>
-      () => {
+    const handleSelect =( description:any ) =>() => {
         // When user selects a place, we can replace the keyword without request data from API
         // by setting the second parameter to "false"
         setValue(description, false);
@@ -44,15 +42,28 @@ import useOnclickOutside from "react-cool-onclickoutside";
             console.log("😱 Error: ", error);
           });
       };
+      useEffect(() => {
+                 const input = document.getElementById("searchTextField") as HTMLInputElement;
+                 const options = {
+                    //  bounds: defaultBounds,
+                     componentRestrictions: { country: "us" },
+                     fields: ["address_components", "geometry", "icon", "name"],
+                     strictBounds: false,
+                     types: ["establishment"],
+                 };
+                 const autocomplete = new window.google.maps.places.Autocomplete(input, options);
+                 autocomplete.setFields(["place_id", "geometry", "name"]);
+             },[]);
   
     const renderSuggestions = () =>
       data.map((suggestion) => {
         const { place_id, structured_formatting: { main_text, secondary_text }, } = suggestion;
   
         return (
-          <li key={place_id} onClick={handleSelect(suggestion)}>
-            <strong>{main_text}</strong> <small>{secondary_text}</small>
-          </li>
+            // <input id="searchTextField" type="text" ></input>
+           <li key={place_id} onClick={handleSelect(suggestion)}>
+             <strong>{main_text}</strong> <small>{secondary_text}</small>
+           </li>
         );
       });
   
@@ -93,32 +104,32 @@ function ShowMap(){
     )   
 }
 
-function AppAuto() {
+// function AppAuto() {
 
-    const center = { lat: 30, lng: 45 };
-    // Create a bounding box with sides ~10km away from the center point
-    const defaultBounds = {
-        north: center.lat + 0.1,
-        south: center.lat - 0.1,
-        east: center.lng + 0.1,
-        west: center.lng - 0.1,
-    };
-    useEffect(() => {
-        const input = document.getElementById("searchTextField") as HTMLInputElement;
-        const options = {
-            bounds: defaultBounds,
-            componentRestrictions: { country: "us" },
-            fields: ["address_components", "geometry", "icon", "name"],
-            strictBounds: false,
-            types: ["establishment"],
-        };
-        const autocomplete = new window.google.maps.places.Autocomplete(input, options);
-        autocomplete.setFields(["place_id", "geometry", "name"]);
-    },[]);
+//     const center = { lat: 30, lng: 45 };
+//     // Create a bounding box with sides ~10km away from the center point
+//     const defaultBounds = {
+//         north: center.lat + 0.1,
+//         south: center.lat - 0.1,
+//         east: center.lng + 0.1,
+//         west: center.lng - 0.1,
+//     };
+//     useEffect(() => {
+//         const input = document.getElementById("searchTextField") as HTMLInputElement;
+//         const options = {
+//             bounds: defaultBounds,
+//             componentRestrictions: { country: "us" },
+//             fields: ["address_components", "geometry", "icon", "name"],
+//             strictBounds: false,
+//             types: ["establishment"],
+//         };
+//         const autocomplete = new window.google.maps.places.Autocomplete(input, options);
+//         autocomplete.setFields(["place_id", "geometry", "name"]);
+//     },[]);
    
- return (<input id="searchTextField" type="text" ></input>)
+//  return (<input id="searchTextField" type="text" ></input>)
 
-}
+// }
 
 function SearchScreen() {
 
