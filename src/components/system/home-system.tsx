@@ -84,11 +84,11 @@ const Home = () => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-<<<<<<< HEAD
+
                                 {/* <Button size="small" onClick={()=>ShowDetails(system._id)}>Show details</Button> */}
-=======
+
                                 <Button size="small" onClick={()=> navigate(`/ShowSystem/${system.urlName}/${system._id}`)}>Show system</Button>
->>>>>>> 83641428192533be7b1593d7585f681209a375f4
+
                                 <Button size="small" onClick={()=>DeleteSystem(system._id)}>Delete this system</Button>
                             </CardActions>
                         </Card>
