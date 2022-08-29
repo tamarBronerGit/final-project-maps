@@ -1,6 +1,7 @@
 import { Circle, GoogleMap, Marker, MarkerClusterer, useLoadScript } from "@react-google-maps/api";
 import { useCallback, useMemo, useRef, useState } from "react";
 import AutoComplete from "./AutoComplete";
+import Grid from '@mui/material/Grid';
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectiosResult = google.maps.DirectionsResult;
@@ -24,7 +25,7 @@ export default function Map() {
 
   const onLoad = useCallback((map: any) => (mapRef.current = map), []);
 
-  const houses = useMemo(() => generateHouses(JerusalemPosition),[center]);
+  const houses = useMemo(() => generateHouses(JerusalemPosition), [center]);
 
   const fetchDirections = (_houses: LatLngLiteral) => {
     if (!office) return;
@@ -44,70 +45,56 @@ export default function Map() {
   }
 
   return <div className="container">
-    <div className="controls">
-      <AutoComplete 
-      setOffice={(position: any) => {
-        setOffice(position);
-        mapRef.current?.panTo(position);
-      }} />
-    </div>
-    <div className="map">
-      <GoogleMap
-        zoom={10}
-        center={center}
-        mapContainerClassName="mapContainer"
-        options={options}
-        onLoad={onLoad}
-      >
-        {office &&  (
-        <>
-       
-        <Marker position={office} />
+    <Grid container spacing={2}>
+    <Grid item xs={20} md={20}>
+            <div>
+                <h4>כרטיסיה למנהל</h4>
+            </div>
+        </Grid>
+      <Grid item xs={60} md={9}>
+        <div className="map">
+          <GoogleMap
+            zoom={10} center={center}
+            mapContainerClassName="mapContainer"
+            options={options}
+            onLoad={onLoad} >
+            {office && (<>
+              <Marker position={office} />
+              <Circle center={office} radius={15000} options={closeOptions} />
+              <Circle center={office} radius={30000} options={middleOptions} />
+              <Circle center={office} radius={45000} options={farOptions} />
 
-        <Circle center={office} radius={15000} options = { closeOptions }/>
-        <Circle center={office} radius={30000} options = { middleOptions }/>
-        <Circle center={office} radius={45000} options = { farOptions }/>
+            </>)}
+          </GoogleMap>
+      </div></Grid>
+      <Grid item xs={60} md={3}>
+        <div className="controls">
+          <AutoComplete
+            setOffice={(position: any) => {
+              setOffice(position);
+              mapRef.current?.panTo(position);
+            }} />
+      </div></Grid>
+    </Grid>
 
-        
-        </>
-        )}
-
-      </GoogleMap>
-    </div>
   </div>
 }
 
-const defaultOptions = {
-  strokeOpacity: 0.5,
-  strokeWeight: 2,
-  clickAble: false,
-  drageAble: false,
-  editAble: false,
-  visible: true
-}
+const defaultOptions = { strokeOpacity: 0.5, strokeWeight: 2, clickAble: false, drageAble: false, editAble: false, visible: true }
 
 const closeOptions = {
   ...defaultOptions,
-  zIndex: 3,
-  fillOpacity: 0.05,
-  strokeColor: "#8BC34A",
-  fillColor: "#8BC34A"
+  zIndex: 3, fillOpacity: 0.05, strokeColor: "#8BC34A", fillColor: "#8BC34A"
 };
 
 const middleOptions = {
   ...defaultOptions,
-  zIndex: 2,
-  fillOpacity: 0.05,
-  strokeColor: "#FBC02D",
-  fillColor: "#FBC02D"
+  zIndex: 2, fillOpacity: 0.05, strokeColor: "#FBC02D", fillColor: "#FBC02D"
 };
 
 const farOptions = {
   ...defaultOptions,
-  zIndex: 1,
-  fillOpacity: 0.05,
-  strokeColor: "#FF5252",
-  fillColor: "#FF5252"
+  zIndex: 1, fillOpacity: 0.05, strokeColor: "#FF5252", fillColor: "#FF5252"
 };
 
 const generateHouses = (position: LatLngLiteral) => {
