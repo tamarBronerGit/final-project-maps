@@ -45,25 +45,21 @@ export default function Map() {
         )
     }
 
-    return <div className="container">
-        <div className="controls">
-            <AutoComplete
-                setOffice={(position: any) => {
-                    setOffice(position);
-                    mapRef.current?.panTo(position);
-                }} />
-                {!office && <p>Enter the address of you</p>}
-                {directions&&<Distance leg={directions.routes[0].legs[0]}/>}
-        </div>
+  return <div className="container">
+    <Grid container spacing={2}>
+    <Grid item xs={20} md={20}>
+            <div>
+                {/* <MenuAppBar/> */}
+            </div>
+        </Grid>
+      <Grid item xs={60} md={9}>
         <div className="map">
-            <GoogleMap
-                zoom={10}
-                center={center}
-                mapContainerClassName="mapContainer"
-                options={options}
-                onLoad={onLoad}
-            >
-                {directions&&(<DirectionsRenderer directions={directions}
+          <GoogleMap
+            zoom={10} center={center}
+            mapContainerClassName="mapContainer"
+            options={options}
+            onLoad={onLoad} >
+             {directions&&(<DirectionsRenderer directions={directions}
                  options={{polylineOptions:{
                     zIndex:50,
                     strokeColor:"#1976D2",
@@ -89,17 +85,28 @@ export default function Map() {
                                
                             }
                         </MarkerClusterer> */}
-                        <Circle center={office} radius={15000} options={closeOptions} />
-                        <Circle center={office} radius={30000} options={middleOptions} />
-                        <Circle center={office} radius={45000} options={farOptions} />
+           
+              <Marker position={office} />
+              <Circle center={office} radius={15000} options={closeOptions} />
+              <Circle center={office} radius={30000} options={middleOptions} />
+              <Circle center={office} radius={45000} options={farOptions} />
 
+            </>)}
+          </GoogleMap>
+      </div></Grid>
+      <Grid item xs={60} md={3}>
+        <div className="controls">
+          <AutoComplete
+            setOffice={(position: any) => {
+              setOffice(position);
+              mapRef.current?.panTo(position);
+               {!office && <p>Enter the address of you</p>}
+                {directions&&<Distance leg={directions.routes[0].legs[0]}/>}
+            }} />
+      </div></Grid>
+    </Grid>
 
-                    </>
-                )}
-
-            </GoogleMap>
-        </div>
-    </div>
+  </div>
 }
 
 const defaultOptions = {
