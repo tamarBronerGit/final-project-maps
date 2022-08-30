@@ -14,6 +14,7 @@ import axios from 'axios';
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole]= useState('');
     const [user, loading, error] = useAuthState(auth);
 
     useEffect(() => {
@@ -22,6 +23,7 @@ import axios from 'axios';
     }
       if (user) {
           createInMongo();
+          
          navigate(`/home`);   
       };
     }, [user, loading]);
@@ -51,11 +53,11 @@ import axios from 'axios';
   const createInMongo=async()=>{
       const newUser = {
         uid: String(user?.uid),
-        role: Role.admin,
+        role: Role.manager,
         firstName: firstName,
         lastName: lastName,
         phone: phone,
-        email: email
+        email: email,
             }
             try{
       await createUser(newUser);
@@ -88,7 +90,16 @@ console.log("create failed");
            placeholder="Last name" 
            onChange={(e) => setLastName(e.target.value)}/>
         </div>
-           <div className="mb-3">
+        <div className="mb-3">
+          <label>Role</label>
+          <select name="roles" onChange={(e) => setRole(e.target.value)}>
+            <option value={Role.admin}>admin</option>
+            <option value={Role.manager}>manager</option>
+            <option value={Role.customer}>customer</option>
+          </select>
+          
+        </div>
+          <div className="mb-3">
           <label>Phone</label>
           <input
             type="string"

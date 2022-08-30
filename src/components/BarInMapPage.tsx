@@ -11,59 +11,76 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import List from './userPage';
+import axios from 'axios';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { getAuth } from 'firebase/auth';
+import {auth, logInWithEmailAndPassword, signInWithGoogle} from '../firebase'
+import { useEffect } from 'react';
+import { User } from './user';
+
 
 export default function MenuAppBar() {
+    
   const [auth, setAuth] = React.useState(true);
+  const _auth= getAuth();
+  const [user,loading,error]=useAuthState(_auth);
+  
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    
+    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget);
+    };  
+     
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setAuth(event.target.checked);
+    };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
+useEffect(()=>{
+  const onLoad= async() => {
+    const uid= user?.uid;
+    // "fIqBMkO9txOROWOZjVEoXayfLOJ3";
+        const data = await (await axios.get<User>(`http://localhost:3333/user/${uid}`)).data;
+        console.log(data);
+        
+        if(data.uid==user?.uid)console.log("data.uid==user?.uid=>😀this admin");
+        if(data.role) console.log(data.role);
+    
+        // if(data.role!==1)
+        // don't show it!
+   
+  }
+  onLoad()
+});
+  
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch checked={auth} onChange={handleChange} aria-label="login switch"/>
-          }
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            here text
-          </Typography>
-          {auth && (
-            <div>
-              <IconButton size="large" aria-label="account of current user"
+  return<Box sx={{ flexGrow: 1 }}>
+  <AppBar position="static" >
+    <Toolbar>
+      
+      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        here text
+      </Typography>
+      {auth && (
+        <div>
+          <IconButton size="large" aria-label="account of current user"
             aria-controls="menu-appbar" aria-haspopup="true" onClick={handleMenu} color="inherit" >
-                <AccountCircle />
-              </IconButton>
-              <Menu  id="menu-appbar" anchorEl={anchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
-                keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right', }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu>
-            </div>
-          )}
-        </Toolbar>
-      </AppBar>
-    </Box>
-  );
+            <AccountCircle />
+          </IconButton>
+          <Menu  id="menu-appbar" anchorEl={anchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
+            keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right', }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>My account</MenuItem>
+          </Menu>
+        </div>
+      )}
+    </Toolbar>
+  </AppBar>
+</Box>
 }
