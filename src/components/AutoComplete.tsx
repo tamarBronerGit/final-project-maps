@@ -10,8 +10,7 @@ type PlaceProps = {
 const AutoComplete = ({ setOffice }: PlaceProps) => {
     const { ready, value, setValue, suggestions: { status, data }, clearSuggestions } = usePlacesAutocomplete();
     const [inputVal, setInputVal] = useState("");
-    const center = { lat: 32, lng: 35 };
-    // ({ lat: 50.064192, lng: -130.605469  }),
+    const center = { lat: 50.064192, lng: -130.605469  };
     const defaultBounds = {
         north: center.lat + 0.1,
         south: center.lat - 0.1,
