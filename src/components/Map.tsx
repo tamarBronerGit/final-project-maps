@@ -2,10 +2,9 @@ import { Circle, DirectionsRenderer, GoogleMap, Marker, MarkerClusterer, useLoad
 import cluster from "cluster";
 import { useCallback, useMemo, useRef, useState } from "react";
 import AutoComplete from "./AutoComplete";
-
 import Grid from '@mui/material/Grid';
-import MenuAppBar from "./BarInMapPage";
 import Distance from "./Distance";
+import MenuAppBar from "./BarInMapPage";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectiosResult = google.maps.DirectionsResult;
@@ -52,7 +51,7 @@ export default function Map() {
     <Grid container spacing={2}>
     <Grid item xs={20} md={20}>
             <div>
-                {/* <MenuAppBar/> */}
+                <MenuAppBar/>
             </div>
         </Grid>
       <Grid item xs={60} md={9}>
@@ -98,15 +97,15 @@ export default function Map() {
           </GoogleMap>
       </div></Grid>
       <Grid item xs={60} md={3}>
-        <div className="controls">
-          <AutoComplete
-            setOffice={(position: any) => {
-              setOffice(position);
-              mapRef.current?.panTo(position);
-               {!office && <p>Enter the address of you</p>}
+      <div className="controls">
+            <AutoComplete
+                setOffice={(position: any) => {
+                    setOffice(position);
+                    mapRef.current?.panTo(position);
+                }} />
+                {!office && <p>Enter the address of you</p>}
                 {directions&&<Distance leg={directions.routes[0].legs[0]}/>}
-            }} />
-      </div></Grid>
+        </div></Grid>
     </Grid>
 
   </div>
