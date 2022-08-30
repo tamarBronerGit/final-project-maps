@@ -2,6 +2,7 @@ import { Circle, GoogleMap, Marker, MarkerClusterer, useLoadScript } from "@reac
 import { useCallback, useMemo, useRef, useState } from "react";
 import AutoComplete from "./AutoComplete";
 import Grid from '@mui/material/Grid';
+import MenuAppBar from "./BarInMapPage";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectiosResult = google.maps.DirectionsResult;
@@ -48,7 +49,7 @@ export default function Map() {
     <Grid container spacing={2}>
     <Grid item xs={20} md={20}>
             <div>
-                <h4>כרטיסיה למנהל</h4>
+                {/* <MenuAppBar/> */}
             </div>
         </Grid>
       <Grid item xs={60} md={9}>
