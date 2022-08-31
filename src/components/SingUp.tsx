@@ -24,7 +24,7 @@ import axios from 'axios';
       if (user) {
           createInMongo();
           
-         navigate(`/home`);   
+         navigate(`/map`);   
       };
     }, [user, loading]);
   
@@ -53,7 +53,7 @@ import axios from 'axios';
   const createInMongo=async()=>{
       const newUser = {
         uid: String(user?.uid),
-        role: Role.manager,
+        role: Role.customer,
         firstName: firstName,
         lastName: lastName,
         phone: phone,
@@ -91,12 +91,14 @@ console.log("create failed");
            onChange={(e) => setLastName(e.target.value)}/>
         </div>
         <div className="mb-3">
-          <label>Role</label>
-          <select name="roles" onChange={(e) => setRole(e.target.value)}>
+          {/* <label>Role</label> */}
+           {/* אין עניין להכניס רול בהרשמה בגלל שכולם נירשמים כלקוח,
+            ורק ביצירת סיסטם- הוא נהיה המנהל שלו */}
+          {/* <select name="roles" onChange={(e) => setRole(e.target.value)}>
             <option value={Role.admin}>admin</option>
             <option value={Role.manager}>manager</option>
             <option value={Role.customer}>customer</option>
-          </select>
+          </select> */}
           
         </div>
           <div className="mb-3">

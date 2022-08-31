@@ -23,7 +23,7 @@ import { useNavigate } from 'react-router-dom';
     }));
     
       // navigate(`/HomePage/${user.uid}`);
-      navigate(`/home`);   
+      navigate(`/map`);   
     }
    }, [user, loading]);
   

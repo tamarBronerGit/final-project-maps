@@ -12,8 +12,8 @@ import { FormDialog } from "./addSystem";
 import '../../css/app.css'
 import showSystem from "./showSystem";
 import { useNavigate } from 'react-router-dom';
-
-
+import MenuAppBar from "../BarInMapPage";
+import { async } from "@firebase/util";
 
 interface System {
     _id: string;
@@ -41,6 +41,12 @@ const Home = () => {
         console.log(data);
         setSystems(data.data);
     }
+
+    const getSystem=async(managerUid:string)=>{
+        const data = await axios.get<System[]>(`http://localhost:3333/system${managerUid}`);
+        console.log(data);
+        setSystems(data.data);
+    }
     
     const DeleteSystem= async (id:string) => {
         var config = {
@@ -64,7 +70,9 @@ const Home = () => {
     }
 
     const renderHome=()=>{
-        return (
+        return (<div>
+            <MenuAppBar/>
+            <FormDialog/>
              <div id="divAllCards"> { systems.map(system => {
                 return (
                     <div>
@@ -92,12 +100,11 @@ const Home = () => {
                     </div>
                 );
             })
-        }</div> )
+        }</div> </div>)
     }
 
     return (
         <div>
-            <FormDialog/>
              {renderHome()}
         </div>
     )

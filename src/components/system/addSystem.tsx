@@ -11,11 +11,17 @@ import Box from '@mui/material/Box';
 import axios from 'axios'
 import { InputBaseComponentProps } from '@mui/material';
 import { useRef } from 'react';
+import { getAuth } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Role, User } from '../user';
 
 export function FormDialog() {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState('');
     
+    const _auth= getAuth();
+    const [user,loading,error]=useAuthState(_auth);
+
     const inputTopic=useRef<HTMLInputElement>();
     const inputUrlName =useRef<HTMLInputElement>();
     const inputUrlImage =useRef<HTMLInputElement>();
@@ -34,6 +40,44 @@ export function FormDialog() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const updateUserRole=async ()=>{
+        const uid= user?.uid;
+
+        const data = await (await axios.get<User>(`http://localhost:3333/user/${uid}`)).data;
+        console.log(data);
+            
+            
+          let userToUpdate = JSON.stringify({
+            _id: data._id,
+            uid: data.uid,
+            role: Role.manager,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            phone: data.phone,
+            email: data.email
+          });
+          
+          var configg = {
+            method: 'put',
+            url: `http://localhost:3333/user/${data._id}`,
+            headers: { 
+              'Content-Type': 'application/json'
+            },
+            data : userToUpdate
+          };
+          
+          axios(configg)
+          .then(function (response) {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          
+    };
+
+
     const addSystem= async()=>{
 
         const dataSystem={
@@ -50,8 +94,11 @@ export function FormDialog() {
             const res = await axios.post(`http://localhost:3333/system/`,dataSystem);
             let tempList = await res.data;
             console.log(res)
+            updateUserRole();
+
             alert(`add ${dataSystem.topic}successfully`);
         } catch (error) { console.log(error); }
+
         finally{setOpen(false);}
         
     }
