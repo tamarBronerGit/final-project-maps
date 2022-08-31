@@ -10,6 +10,7 @@ import  List  from './components/userPage'
 import Map from './components/Map';
 import '../src/css/app.css';
 
+
 function App() {
 
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/map" element={<Map />} />
           </Routes>
        </Router>
+
     </div>
   );
 }
