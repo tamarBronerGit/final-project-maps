@@ -14,6 +14,7 @@ import showSystem from "./showSystem";
 import { useNavigate } from 'react-router-dom';
 import MenuAppBar from "../BarInMapPage";
 import { async } from "@firebase/util";
+import { Role, User } from "../user";
 
 interface System {
     _id: string;
@@ -47,6 +48,17 @@ const Home = () => {
         console.log(data);
         setSystems(data.data);
     }
+    const getUser=async(managerUid:string)=>{
+        const data = await axios.get<User>(`http://localhost:3333/user${managerUid}`);
+        console.log(data);
+        if(await ifManager(data.data)) getSystem(managerUid);
+    }
+
+    const ifManager=async(user:User)=>{
+        if(user.role===Role.manager)
+            return true;
+        return false;
+    }
     
     const DeleteSystem= async (id:string) => {
         var config = {
@@ -75,7 +87,7 @@ const Home = () => {
             <FormDialog/>
              <div id="divAllCards"> { systems.map(system => {
                 return (
-                    <div>
+                    <div id="card">
                         <Card sx={{ maxWidth: 340 }}>
                             <CardMedia component="img" height="150" image={system.urlImage} alt="green iguana" />
                             <CardContent>

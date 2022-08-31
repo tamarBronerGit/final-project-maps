@@ -1,4 +1,10 @@
+body {
+    background-color:lightblue;
+  }
 
+#card{
+    margin-left: 0.5%;
+}
 
 #divAllCards{
     display:flex;

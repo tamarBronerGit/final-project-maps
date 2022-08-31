@@ -8,6 +8,7 @@ import  Home  from './components/system/home-system'
 import ShowSystem from './components/system/showSystem';
 import  List  from './components/userPage'
 import Map from './components/Map';
+import '../src/css/app.css';
 
 function App() {
 

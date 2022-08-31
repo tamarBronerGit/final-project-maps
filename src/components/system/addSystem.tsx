@@ -26,7 +26,7 @@ export function FormDialog() {
     const inputUrlName =useRef<HTMLInputElement>();
     const inputUrlImage =useRef<HTMLInputElement>();
     const inputObjectName=useRef<HTMLInputElement>();
-    const inputManagerUid=useRef<HTMLInputElement>();
+    // const inputManagerUid=useRef<HTMLInputElement>();
     const inputDescription=useRef<HTMLInputElement>();
     const inputCommunicationDetails=useRef<HTMLInputElement>();
 
@@ -43,11 +43,8 @@ export function FormDialog() {
 
     const updateUserRole=async ()=>{
         const uid= user?.uid;
-
         const data = await (await axios.get<User>(`http://localhost:3333/user/${uid}`)).data;
         console.log(data);
-            
-            
           let userToUpdate = JSON.stringify({
             _id: data._id,
             uid: data.uid,
@@ -85,7 +82,7 @@ export function FormDialog() {
             urlName: inputUrlName.current?.value,
             urlImage: inputUrlImage.current?.value,
             objectName: inputObjectName.current?.value,
-            managerUid: inputManagerUid.current?.value,
+            managerUid: user?.uid,
             description:inputDescription.current?.value,
             communicationDetails:inputCommunicationDetails.current?.value
            }
@@ -126,7 +123,7 @@ export function FormDialog() {
                             <TextField inputRef={inputUrlName }            label="enter UrlName system"             placeholder="UrlName system "             variant="standard" />
                             <TextField inputRef={inputUrlImage}            label="enter UrlImage system"            placeholder="UrlImage system"             variant="standard" />
                             <TextField inputRef={inputObjectName}          label="enter ObjectName system"          placeholder="ObjectName system"           variant="standard" />
-                            <TextField inputRef={inputManagerUid}          label="enter ManagerUid system"          placeholder="ManagerUid system"           variant="standard" />
+                            <TextField     label={user?.uid}            variant="standard" />
                             <TextField inputRef={inputDescription}         label="enter Description system"         placeholder="Description system"          variant="standard" />
                             <TextField inputRef={inputCommunicationDetails}label="enter CommunicationDetails system"placeholder="CommunicationDetails system" variant="standard" />
                         </div>
