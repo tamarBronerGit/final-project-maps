@@ -1,14 +1,33 @@
-
-import React from 'react';
-// import logo from './logo.svg';
-import './App.css';
-import List from './components/user';
+import * as React from 'react'
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from './components/Login';
+// import Auto from './components/Maps';
+import SignUpPage from './components/SingUp';
+// import BasicButtons from './components/addSystem';
+import  Home  from './components/system/home-system'
+import ShowSystem from './components/system/showSystem';
+import  List  from './components/userPage'
+import Map from './components/Map';
+import '../src/css/app.css';
 
 
 function App() {
 
   return (
-    <div className="App">
+    <div className="app">
+      
+       <Router>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/signUp" element={<SignUpPage />} />
+            {/* <Route path="/"element={<Auto/>} /> */}
+            <Route path="/home" element={<Home />} />
+            <Route path="/ShowSystem/:name/:id" element={< ShowSystem/>} />
+            <Route path="/user" element={<List />} />
+            <Route path="/map" element={<Map />} />
+          </Routes>
+       </Router>
+
     </div>
   );
 }
