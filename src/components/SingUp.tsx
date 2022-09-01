@@ -6,6 +6,10 @@ import { auth, registerWithEmailAndPassword,signInWithGoogle } from "../firebase
 // import { createUser} from '../api/user';
 // import "../css/Register.css";
 import axios from 'axios';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
  export default function SignUpPage() {
     const navigate = useNavigate();
@@ -70,80 +74,101 @@ console.log("create failed");
   };
   
     return (
-       <form  className='auth-inner' 
-      //  onSubmit={()=>registerWithEmailAndPassword(firstName+' '+lastName,email, password)}
-      >
-        <h3>Sign Up</h3>
+       <form  className='auth-inner' >
+        {/* onSubmit={()=>registerWithEmailAndPassword(firstName+' '+lastName,email, password)} */}
+      <Box sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}>
+     
+        <Typography component="h1" variant="h5">
+              Sign Up
+        </Typography>
         <div className="mb-3">
-          <label>First name</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="First name"
-            onChange={(e) => setFirstName(e.target.value)}
-          />
+        <TextField
+                margin="normal"
+                required
+                id="First name"
+                label="First name"
+                name="First name"
+                autoComplete="Last name"
+                autoFocus
+                className="form-control"
+                onChange={(e) => setFirstName(e.target.value)}
+              />
         </div>
         <div className="mb-3">
-          <label>Last name</label>
-          <input type="text"
-           className="form-control" 
-           placeholder="Last name" 
-           onChange={(e) => setLastName(e.target.value)}/>
+        <TextField
+                margin="normal"
+                required
+                id="Last name"
+                label="Last name"
+                name="Last name"
+                autoComplete="Last name"
+                autoFocus
+                className="form-control"
+                onChange={(e) => setLastName(e.target.value)}
+              />
+        </div>
+        
+          <div className="mb-3">
+          <TextField
+                margin="normal"
+                required
+                id="Phone"
+                label="Phone"
+                name="Phone"
+                autoComplete="Phone"
+                autoFocus
+                className="form-control"
+                onChange={(e) => setPhone(e.target.value)}
+              />
         </div>
         <div className="mb-3">
-          {/* <label>Role</label> */}
-           {/* אין עניין להכניס רול בהרשמה בגלל שכולם נירשמים כלקוח,
-            ורק ביצירת סיסטם- הוא נהיה המנהל שלו */}
-          {/* <select name="roles" onChange={(e) => setRole(e.target.value)}>
-            <option value={Role.admin}>admin</option>
-            <option value={Role.manager}>manager</option>
-            <option value={Role.customer}>customer</option>
-          </select> */}
+        <TextField
+                margin="normal"
+                required
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                className="form-control"
+                onChange={(e) => setEmail(e.target.value)}
+              />
           
         </div>
-          <div className="mb-3">
-          <label>Phone</label>
-          <input
-            type="string"
-            className="form-control"
-            placeholder="Enter phone"
-            onChange={(e) => setPhone(e.target.value)}
-          />
-        </div>
         <div className="mb-3">
-          <label>Email </label>
-          <input
-            type="email"
-            className="form-control"
-            placeholder="Enter email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <label>Password</label>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="Enter password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <TextField
+        className="form-control"
+                margin="normal"
+                required
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+          
         </div>
         <div className="d-grid">
-          <button type="button" className="btn btn-primary" 
-          onClick={()=>registerWithEmailAndPassword(firstName+' '+lastName,email, password)}>
+        <Button type="button" className="btn btn-primary"
+            onClick={()=>registerWithEmailAndPassword(firstName+' '+lastName,email, password)}>
             Sign Up
-          </button>
-        </div>
+        </Button>
           <div className="mb-3">
-              <div className="d-grid">
-                <button type="button" className="login-with-google-btn" onClick={() => signInGoogle()}>
+                <Button type="button" className="login-with-google-btn" onClick={() => signInGoogle()}>
                  Sign Up with Google
-             </button>
+             </Button>
           </div>
-          </div>
+        </div>
         <p className="forgot-password text-right">
           Already registered <a href="/login">sign in?</a>
         </p>
+        </Box>
       </form>
     )
 }
