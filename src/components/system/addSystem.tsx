@@ -22,13 +22,12 @@ export function FormDialog() {
     const _auth= getAuth();
     const [user,loading,error]=useAuthState(_auth);
 
-    const inputTopic=useRef<HTMLInputElement>();
-    const inputUrlName =useRef<HTMLInputElement>();
-    const inputUrlImage =useRef<HTMLInputElement>();
-    const inputObjectName=useRef<HTMLInputElement>();
-    // const inputManagerUid=useRef<HTMLInputElement>();
-    const inputDescription=useRef<HTMLInputElement>();
-    const inputCommunicationDetails=useRef<HTMLInputElement>();
+    const inputSubject              =useRef<HTMLInputElement>();
+    const inputName                 =useRef<HTMLInputElement>();
+    const inputUrlImage              =useRef<HTMLInputElement>();
+    const inputAdmin_id             =useRef<HTMLInputElement>();
+    const inputDescription          =useRef<HTMLInputElement>();
+    const inputCommunicationDetails =useRef<HTMLInputElement>();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
@@ -41,64 +40,63 @@ export function FormDialog() {
         setOpen(false);
     };
 
-    const updateUserRole=async ()=>{
-        const uid= user?.uid;
-        const data = await (await axios.get<User>(`http://localhost:3333/user/${uid}`)).data;
-        console.log(data);
-          let userToUpdate = JSON.stringify({
-            _id: data._id,
-            uid: data.uid,
-            role: Role.manager,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            phone: data.phone,
-            email: data.email
-          });
+    // const updateUserRole=async ()=>{
+    //     const uid= user?.uid;
+    //     const data = await (await axios.get<User>(`http://localhost:3333/user/${uid}`)).data;
+    //     console.log(data);
+    //       let userToUpdate = JSON.stringify({
+    //         _id: data._id,
+    //         uid: data.uid,
+    //         role: Role.manager,
+    //         firstName: data.firstName,
+    //         lastName: data.lastName,
+    //         phone: data.phone,
+    //         email: data.email
+    //       });
           
-          var configg = {
-            method: 'put',
-            url: `http://localhost:3333/user/${data._id}`,
-            headers: { 
-              'Content-Type': 'application/json'
-            },
-            data : userToUpdate
-          };
+    //       var configg = {
+    //         method: 'put',
+    //         url: `http://localhost:3333/user/${data._id}`,
+    //         headers: { 
+    //           'Content-Type': 'application/json'
+    //         },
+    //         data : userToUpdate
+    //       };
           
-          axios(configg)
-          .then(function (response) {
-            console.log(JSON.stringify(response.data));
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+    //       axios(configg)
+    //       .then(function (response) {
+    //         console.log(JSON.stringify(response.data));
+    //       })
+    //       .catch(function (error) {
+    //         console.log(error);
+    //       });
           
-    };
+    // };
 
 
     const addSystem= async()=>{
-
-        const dataSystem={
-            topic:inputTopic.current?.value,
-            urlName: inputUrlName.current?.value,
-            urlImage: inputUrlImage.current?.value,
-            objectName: inputObjectName.current?.value,
-            managerUid: user?.uid,
-            description:inputDescription.current?.value,
-            communicationDetails:inputCommunicationDetails.current?.value
+debugger
+            const dataSystem={
+                subject:inputSubject.current?.value,
+                urlName:inputName.current?.value,              
+                urlImage:inputUrlImage.current?.value  ,          
+                manager_id:inputAdmin_id.current?.value  ,          
+                description:inputDescription.current?.value ,        
+                communicationDetails:inputCommunicationDetails.current?.value,
            }
            console.log(dataSystem)
         try {     
             const res = await axios.post(`http://localhost:3333/system/`,dataSystem);
             let tempList = await res.data;
-            console.log(res)
-            updateUserRole();
-
-            alert(`add ${dataSystem.topic}successfully`);
-        } catch (error) { console.log(error); }
-
-        finally{setOpen(false);}
+            console.log(res.data);
+            alert(`add ${dataSystem.subject} successfully`);
+            } 
         
-    }
+        catch (error) { console.log(error); }
+    
+        finally{setOpen(false);}
+    
+    }     
 
     return (
         <div>
@@ -119,13 +117,14 @@ export function FormDialog() {
                         autoComplete="off">
                         
                         <div>
-                            <TextField inputRef={inputTopic}               label="enter topic system"               placeholder="topic system"                variant="standard" />
-                            <TextField inputRef={inputUrlName }            label="enter UrlName system"             placeholder="UrlName system "             variant="standard" />
-                            <TextField inputRef={inputUrlImage}            label="enter UrlImage system"            placeholder="UrlImage system"             variant="standard" />
-                            <TextField inputRef={inputObjectName}          label="enter ObjectName system"          placeholder="ObjectName system"           variant="standard" />
-                            <TextField     label={user?.uid}            variant="standard" />
+                            <TextField inputRef={inputSubject}             label="enter Subject system"               placeholder="Subject system"                variant="standard" />
+                            <TextField inputRef={inputName }            label="enter Name system"             placeholder="Name system "             variant="standard" />
+                            <TextField inputRef={inputUrlImage}            label="enter UrlImage "            placeholder="UrlImage system"             variant="standard" />
+                            <TextField inputRef={inputAdmin_id}       label="enter Admin_id"  placeholder="Admin_id"  variant="standard" />
                             <TextField inputRef={inputDescription}         label="enter Description system"         placeholder="Description system"          variant="standard" />
-                            <TextField inputRef={inputCommunicationDetails}label="enter CommunicationDetails system"placeholder="CommunicationDetails system" variant="standard" />
+                            <TextField inputRef={inputCommunicationDetails}label="enter CommunicationDetails "placeholder="CommunicationDetails system" variant="standard" />
+                        {/* כשלוחצים על הוספת סיסטם=
+                         נוסף סיסטם וגם נוצר מנג'ר דש שמכיל פרטי יוזר מחובר ופרטי הסיסטם */}
                         </div>
                     </Box>
                 </DialogContent>
