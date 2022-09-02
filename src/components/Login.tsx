@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Login } from './Loginuser';
 // import '../css/Login.css'
 
  export default function LoginPage(){
@@ -40,7 +39,6 @@ import { Login } from './Loginuser';
 
 
     return (<div className='auth-inner' >
-     {/* <Login/> */}
      <Box sx={{
               marginTop: 8,
               display: 'flex',

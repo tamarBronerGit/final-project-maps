@@ -9,25 +9,24 @@ export default function showSystemFromUser(uid: string | undefined){
     
     var config = {
         method: 'get',
-        url: `http://localhost:3333/system/${uid}`,
+        url: `http://localhost:3333/user/${uid}`,
         headers: { }
       };
       axios(config)
       .then(function (response) {
-        console.log((response.data[0].managerUid));
-        const userIn= getUser(response.data[0].managerUid);
+        console.log((response.data));
+        const userIn= (response.data._id);
         console.log(userIn);
-
-    })
-        
+        getSystemsUser(userIn);
+    })       
       .catch(function (error) {
         console.log(error);
     });
-    
-    const getUser=(uid:string)=>{
+  
+    const getSystemsUser=(_id:string)=>{
         var config = {
             method: 'get',
-            url: `http://localhost:3333/user/${uid}`,
+            url: `http://localhost:3333/system/${_id}`,
             headers: { }
           };
           axios(config)
@@ -37,5 +36,4 @@ export default function showSystemFromUser(uid: string | undefined){
             console.log(error);
         });
     }
-
-}
+} 

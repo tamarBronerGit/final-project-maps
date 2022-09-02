@@ -12,10 +12,10 @@ import { useParams } from 'react-router-dom';
 import { CardContent } from '@mui/material';
 
 
-export default function ShowSystem() {
+export default function EditSystem() {
   let s = {
     topic: "",
-    urlName: "",
+    // urlName: "",
     urlImage: "",
     objectName: "",
     managerUid: "",
@@ -23,7 +23,7 @@ export default function ShowSystem() {
 };
   const [system, setSystem] = useState(s);
   const {id,name} =useParams();
-  
+
     useEffect(() => {
         ShowDetails(id||'');
     }, []);
@@ -64,7 +64,7 @@ export default function ShowSystem() {
                                 <Typography >topic:  {system.topic}</Typography>
                             </div>
                             <div className="mb-3">
-                                <Typography >urlName:   {system.urlName}</Typography>
+                                {/* <Typography >urlName:   {system.urlName}</Typography> */}
                             </div>
                             {/* <div className="mb-3">
                                 <Typography >urlImage:   {system.urlImage}</Typography>
