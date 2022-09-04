@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import MenuAppBar from "../BarInMapPage";
 import AutoComplete from "./AutoComplete";
 import Distance from "./Distance";
+import axios from "axios";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectiosResult = google.maps.DirectionsResult;
@@ -69,10 +70,21 @@ export default function Map() {
 
                 {office && (
                     <>
-
-                        <Marker position={office} />
-                        {houses.map(house => <Marker key={house.lat} position={house}
-                        onClick={()=>{fetchDirections(house)}} />)}
+                       <Marker position={office} />
+                          async=()=> { 
+                        (await houses).map((house: any) =>{
+                            const position:LatLngLiteral={lat:house.location_geolocation.lat,lng:house.location_geolocation.len}
+                            console.log(position);
+                             return(
+                             <Marker key={house.location_geolocation.lat} 
+                             position={position}
+                                onClick={() => { fetchDirections(house) }} />)})
+                             
+                        }
+                    
+                        {/* <Marker position={office} />
+                        {houses.map(house => <Marker key={house.lat} position={house.lat,house.len}
+                        onClick={()=>{fetchDirections(house)}} />)} */}
                         {/* <MarkerClusterer>
                             { (clusterer)=>
                                 houses.map((house) =>(
@@ -142,15 +154,34 @@ const farOptions = {
     fillColor: "#FF5252"
 };
 
-const generateHouses = (position: LatLngLiteral) => {
-    // alert("generateHouses")
-    const houses: Array<LatLngLiteral> = [];
-    for (let i = 0; i < 5; i++) {
-        const direction = Math.random() < 0.5 ? -2 : 2;
-        houses.push({
-            lat: position.lat * Math.random() / direction,
-            lng: position.lng * Math.random() / direction,
-        });
+// const generateHouses = (position: LatLngLiteral) => {
+//     // alert("generateHouses")
+//     const houses: Array<LatLngLiteral> = [];
+//     for (let i = 0; i < 5; i++) {
+//         const direction = Math.random() < 0.5 ? -2 : 2;
+//         houses.push({
+//             lat: position.lat * Math.random() / direction,
+//             lng: position.lng * Math.random() / direction,
+//         });
+//     }
+//     return houses;
+// }
+const generateHouses  =async(position: LatLngLiteral)=> {
+        let houses: Array<LatLngLiteral|Location> = [];
+        // for (let i = 0; i < 5; i++) {
+        //     const direction = Math.random() < 0.5 ? -2 : 2;
+        //     houses.push({
+        //         lat: position.lat * Math.random() / direction,
+        //         lng: position.lng * Math.random() / direction,
+        //     });
+        // }
+        // async () => {
+            const data = await axios.get('http://localhost:3333/location');
+            // const houses: Array<LatLngLiteral> = [];
+            // alert(data.data)
+            console.log(data.data);
+            houses=data.data;
+            // return data.data;
+        // }
+        return houses;
     }
-    return houses;
-}

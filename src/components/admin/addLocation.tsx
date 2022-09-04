@@ -78,7 +78,7 @@ export function FormDialog() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={addLocation}>enter to add</Button>
+                    <Button onClick={addLocation}>enter to add location</Button>
                 </DialogActions>
             </Dialog>
         </div>
