@@ -7,7 +7,7 @@ import SignUpPage from './components/SingUp';
 import  Home  from './components/system/home-system'
 import EditSystem from './components/system/EditSystem';
 import  List  from './components/userPage'
-import Map from './components/Map';
+import Map from './components/maps/Map';
 import '../src/css/app.css';
 
 
@@ -24,12 +24,8 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/EditSystem/:name/:id" element={< EditSystem/>} />
             <Route path="/user" element={<List />} />
-
-
             {/* <Route path="/details" element={<ShowSystem />} /> */}
-            
-
-
+        
             <Route path="/" element={<Login />} />
 
             <Route path="/map" element={<Map />} />

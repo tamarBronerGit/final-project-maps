@@ -14,66 +14,42 @@ import EditSystem from "./EditSystem";
 import { useNavigate } from 'react-router-dom';
 import MenuAppBar from "../BarInMapPage";
 import { async } from "@firebase/util";
-import { Role, User } from "../user";
+import System from "../../interfaces/System";
+import { getAllSystemFromServer } from "../../data/getAllSystemsFromServer";
+import { getSystemsByUser } from "../../data/getSystemsByUser";
+import DeleteSystemFromServer from "../../data/deleteSystem";
 
-interface System {
-    _id: string;
-    name: string;
-    urlImage: string;
-    subject: string;
-    admin_id: string;
-    description: string;
-    communicationDetails: object;
-    _v: number
-}
+
 const Home = () => {
     const navigate = useNavigate();
 
     const [systems, setSystems] = useState<System[]>([]);
 
     useEffect(() => {
+        //if manager/customer
         getAllSystem();
+        
     }, []);
 
     const getAllSystem = async () => {
-        const data = await axios.get<System[]>('http://localhost:3333/system');
+        const data = await getAllSystemFromServer();
         console.log(data);
-        setSystems(data.data);
+        if(data) setSystems(data);
     }
 
     const getSystem=async(managerUid:string)=>{
-        const data = await axios.get<System[]>(`http://localhost:3333/system${managerUid}`);
+        const data=await getSystemsByUser(managerUid);
         console.log(data);
-        setSystems(data.data);
+        if(data) setSystems(data);
     }
-    // const getUser=async(managerUid:string)=>{
-    //     const data = await axios.get<User>(`http://localhost:3333/user${managerUid}`);
-    //     console.log(data);
-    //     if(await ifManager(data.data)) getSystem(managerUid);
-    // }
-
-    // const ifManager=async(user:User)=>{
-    //     if(user.role===Role.manager)
-    //         return true;
-    //     return false;
-    // }
+    
     
     const DeleteSystem= async (id:string) => {
-        var config = {
-          method: 'delete',
-          url: `http://localhost:3333/system/${id}`,
-          headers: { }
-        };
-
-        axios(config)
-        .then(function (response) {
-            console.log("delete successful")
-          console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
+        
+        DeleteSystemFromServer(id);
+        
     }
+
     const ShowDetails= async (id:string) => {
         // navigate(`/ShowSystem/hello/${systems.urlName}/${systems._id}`)
         EditSystem();
@@ -83,7 +59,7 @@ const Home = () => {
         return (<div>
             <MenuAppBar/>
             <FormDialog/>
-             <div id="divAllCards"> { systems.map(system => {
+             <div id="divAllCards"> {systems.map(system => {
                 return (
                     <div id="card">
                         <Card sx={{ maxWidth: 340 }}>
@@ -95,8 +71,8 @@ const Home = () => {
                                 <Typography variant="body2" color="text.secondary">
                                     <div>
                                         <th>id: {system._id}</th>
-                                        <tr>admin_id  :{system.admin_id}</tr>           
-                                        <tr>name  :{system.name}</tr> 
+                                        <tr>manager_id  :{system.manager_id}</tr>           
+                                        <tr>subject  :{system.subject}</tr> 
                                         <br /> 
                                     </div>
                                 </Typography>
@@ -106,17 +82,14 @@ const Home = () => {
 
                                 {/* <Button size="small" onClick={()=>ShowDetails(system._id)}>Show details</Button> */}
 
-                                <Button size="small" onClick={()=> navigate(`/ShowSystem/${system.urlName}/${system._id}`)}>Show system</Button>
-
-
-                                <Button size="small" onClick={()=> navigate(`/ShowSystem/${system.name}/${system._id}`)}>Show system</Button>
+                                <Button size="small" onClick={()=> navigate(`/EditSystem/${system.subject}/${system._id}`)}>Show system</Button>
 
                                 <Button size="small" onClick={()=>DeleteSystem(system._id)}>Delete this system</Button>
                             </CardActions>
                         </Card>
                         <br/>
                     </div>
-                );
+            );
             })
         }</div> </div>)
     }

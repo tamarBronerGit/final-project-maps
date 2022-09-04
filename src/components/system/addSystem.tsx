@@ -8,12 +8,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
-import axios from 'axios'
 import { InputBaseComponentProps } from '@mui/material';
 import { useRef } from 'react';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Role, User } from '../user';
+import addNewSystem from '../../data/addNewSystem';
 
 export function FormDialog() {
     const [open, setOpen] = React.useState(false);
@@ -40,38 +39,6 @@ export function FormDialog() {
         setOpen(false);
     };
 
-    // const updateUserRole=async ()=>{
-    //     const uid= user?.uid;
-    //     const data = await (await axios.get<User>(`http://localhost:3333/user/${uid}`)).data;
-    //     console.log(data);
-    //       let userToUpdate = JSON.stringify({
-    //         _id: data._id,
-    //         uid: data.uid,
-    //         role: Role.manager,
-    //         firstName: data.firstName,
-    //         lastName: data.lastName,
-    //         phone: data.phone,
-    //         email: data.email
-    //       });
-          
-    //       var configg = {
-    //         method: 'put',
-    //         url: `http://localhost:3333/user/${data._id}`,
-    //         headers: { 
-    //           'Content-Type': 'application/json'
-    //         },
-    //         data : userToUpdate
-    //       };
-          
-    //       axios(configg)
-    //       .then(function (response) {
-    //         console.log(JSON.stringify(response.data));
-    //       })
-    //       .catch(function (error) {
-    //         console.log(error);
-    //       });
-          
-    // };
 
 
     const addSystem= async()=>{
@@ -86,9 +53,10 @@ debugger
            }
            console.log(dataSystem)
         try {     
-            const res = await axios.post(`http://localhost:3333/system/`,dataSystem);
-            let tempList = await res.data;
-            console.log(res.data);
+            const sss= await addNewSystem( dataSystem);
+            // const res = await axios.post(`http://localhost:3333/system/`,dataSystem);
+            // let tempList = await res.data;
+            console.log(sss);
             alert(`add ${dataSystem.subject} successfully`);
             } 
         

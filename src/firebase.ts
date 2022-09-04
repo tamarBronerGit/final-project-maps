@@ -17,7 +17,6 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
-import { Role } from "./components/user";
 
 const Config = {
     apiKey: "AIzaSyDooQ14f6eaCB07ie_P5bfQ8D5nUqoF_b0",

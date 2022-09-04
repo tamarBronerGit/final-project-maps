@@ -8,7 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
-import axios from 'axios'
+import addLocationMap from "../../data/addLocation";
 
 export function FormDialog() {
     const [open, setOpen] = React.useState(false);
@@ -19,7 +19,7 @@ export function FormDialog() {
     const inputCommunication =useRef<HTMLInputElement>();
     const inputDetails=useRef<HTMLInputElement>();
     const inputNotes=useRef<HTMLInputElement>();
-    }
+    
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
     };
@@ -40,10 +40,10 @@ export function FormDialog() {
             notes: inputNotes.current?.value
            }
            console.log(dataLocation)
-        try {     
-            const res = await axios.post(`http://localhost:3333/location/`,dataLocation);
-            let tempList = await res.data;
-            console.log(res)
+        try {   
+            addLocationMap(dataLocation)  ;
+            // let tempList = await res.data;
+            // console.log(res)
             alert(`add ${dataLocation.details}successfully`);
         } catch (error) { console.log(error); }
         finally{setOpen(false);}
@@ -83,7 +83,6 @@ export function FormDialog() {
             </Dialog>
         </div>
     );
-
     }
+}
 
-   
