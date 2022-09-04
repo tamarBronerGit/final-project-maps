@@ -102,7 +102,15 @@ const Home = () => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
+
+
+                                {/* <Button size="small" onClick={()=>ShowDetails(system._id)}>Show details</Button> */}
+
+                                <Button size="small" onClick={()=> navigate(`/ShowSystem/${system.urlName}/${system._id}`)}>Show system</Button>
+
+
                                 <Button size="small" onClick={()=> navigate(`/ShowSystem/${system.name}/${system._id}`)}>Show system</Button>
+
                                 <Button size="small" onClick={()=>DeleteSystem(system._id)}>Delete this system</Button>
                             </CardActions>
                         </Card>
