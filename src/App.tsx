@@ -28,7 +28,7 @@ function App() {
             
 
 
-            <Route path="/" element={<SearchPage />} />
+            <Route path="/" element={<Login />} />
 
             <Route path="/map" element={<Map />} />
 
