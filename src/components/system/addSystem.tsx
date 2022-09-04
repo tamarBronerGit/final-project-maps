@@ -12,14 +12,27 @@ import { InputBaseComponentProps } from '@mui/material';
 import { useRef } from 'react';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-// import addNewSystem from '../../data/addNewSystem';
 
-export function FormDialog() {
+import systemStore from '../../data/system';
+import managerStore from '../../data/manager';
+import { observer } from 'mobx-react';
+import UserStore from '../../data/user';
+
+function FormDialog() {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState('');
     
     const _auth= getAuth();
     const [user,loading,error]=useAuthState(_auth);
+    const [manager, setManager]= React.useState("");
+
+    const isManager=async ()=>{
+      if(user?.uid){
+        const userCome= UserStore.getById(user?.uid); 
+        const _id=(await userCome)._id;
+        if(_id)  return _id;
+     }
+    }
 
     const inputSubject              =useRef<HTMLInputElement>();
     const inputName                 =useRef<HTMLInputElement>();
@@ -44,26 +57,40 @@ export function FormDialog() {
                 subject:inputSubject.current?.value,
                 urlName:inputName.current?.value,              
                 urlImage:inputUrlImage.current?.value  ,          
-                manager_id:inputAdmin_id.current?.value  ,          
+                manager_id:inputAdmin_id.current?.value ,          
                 description:inputDescription.current?.value ,        
-                communicationDetails:inputCommunicationDetails.current?.value,
-           }
-           console.log(dataSystem)
+                communicationDetails:inputCommunicationDetails.current?.value,}
+            console.log(dataSystem)
         try {     
-            // const sss= await addNewSystem( dataSystem);
-
-/*// const res = await axios.post(`http://localhost:3333/system/`,dataSystem);
-            // let tempList = await res.data;*/
+            const sss= await systemStore.addNewSystem( dataSystem);
             // console.log(sss);
-
             alert(`add ${dataSystem.subject} successfully`);
+            // createNewManager();
             } 
         
         catch (error) { console.log(error); }
     
         finally{setOpen(false);}
-    
-    }     
+    }   
+
+    const createNewManager=async()  =>{
+        
+        // const sys_id=systemStore.getSystemsByUser()
+
+        const newManager={
+            user_id:inputAdmin_id,
+            // system_id:,
+            active:true,
+            display_name:inputName,
+            role: "manager",
+            invitation_sent: [],
+        }
+        // const manager= await managerStore.getManager(manager_id);
+        // console.log(manager);
+
+        // const mmm= await managerStore.createManager(newManager)
+    }
+
 
     return (
         <div>
@@ -87,7 +114,7 @@ export function FormDialog() {
                             <TextField inputRef={inputSubject}             label="enter Subject system"               placeholder="Subject system"                variant="standard" />
                             <TextField inputRef={inputName }            label="enter Name system"             placeholder="Name system "             variant="standard" />
                             <TextField inputRef={inputUrlImage}            label="enter UrlImage "            placeholder="UrlImage system"             variant="standard" />
-                            <TextField inputRef={inputAdmin_id}       label="enter Admin_id"  placeholder="Admin_id"  variant="standard" />
+                            <TextField inputRef={inputAdmin_id}     label="Admin_id"  placeholder=" Admin_id"  variant="standard" />
                             <TextField inputRef={inputDescription}         label="enter Description system"         placeholder="Description system"          variant="standard" />
                             <TextField inputRef={inputCommunicationDetails}label="enter CommunicationDetails "placeholder="CommunicationDetails system" variant="standard" />
                         {/* כשלוחצים על הוספת סיסטם=
@@ -103,4 +130,4 @@ export function FormDialog() {
         </div>
     );
 }
-
+export default observer(FormDialog);

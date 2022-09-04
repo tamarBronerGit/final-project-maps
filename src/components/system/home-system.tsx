@@ -8,14 +8,13 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import axios from "axios";
-import { FormDialog } from "./addSystem";
 import '../../css/app.css'
 import EditSystem from "./EditSystem";
 import { useNavigate } from 'react-router-dom';
 import MenuAppBar from "../BarInMapPage";
+import FormDialog from "./addSystem";
 import { async } from "@firebase/util";
 import System from "../../interfaces/System";
-
 import { observer } from "mobx-react";
 import systemStore from "../../data/system";
 

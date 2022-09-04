@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import locationStore from "../../data/location";
 import { observer } from "mobx-react-lite";
 
-export function FormDialog() {
+export function FormDialogLocation() {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState('');
 
@@ -87,4 +87,4 @@ export function FormDialog() {
     }
 }
 
-// export default observer(FormDialog);
+// export default observer(FormDialogLocation);
