@@ -2,14 +2,15 @@ import React, { useState,useEffect } from 'react';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from 'react-router-dom';
 import { auth, registerWithEmailAndPassword,signInWithGoogle } from "../firebase";
- import {Role, User} from './user';
+
 // import { createUser} from '../api/user';
 // import "../css/Register.css";
-import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import createNewUser from '../data/createNewUser';
+import User, { Role } from '../interfaces/User';
 
  export default function SignUpPage() {
     const navigate = useNavigate();
@@ -32,26 +33,11 @@ import Box from '@mui/material/Box';
       };
     }, [user, loading]);
   
-  //   const signUpWithPassword = async () => {
-  //     debugger;
-  //     //׳™׳¦׳™׳¨׳” ׳¢׳ ׳₪׳™׳™׳¨׳‘׳™׳™׳¡
-  //     await registerWithEmailAndPassword(firstName+' '+lastName,email, password);
-  //    debugger;
-  //    console.log("create");
-  //    console.log(user);
-  //     //׳™׳¦׳™׳¨׳” ׳¢׳ ׳׳•׳ ׳’׳•
-  //     createInMongo();
-  // }
+  
    const createUser= async (newUser:User) => {
+    createNewUser(newUser);
     console.log(error);
-    try {
-        const user= await axios.post('http://localhost:3333/user/', newUser);
-        console.log(user.data);
-         debugger;
-    }
-    catch (error) {
-        console.log('error-createUser',error);
-    }
+    
 }
 
   const createInMongo=async()=>{
@@ -64,7 +50,7 @@ import Box from '@mui/material/Box';
         email: email,
             }
             try{
-      await createUser(newUser);
+            await createUser(newUser);
             }catch{
 console.log("create failed");
             }

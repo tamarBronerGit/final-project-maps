@@ -1,8 +1,8 @@
 import { CardContent, Typography } from "@mui/material";
-import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Card } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import showLocationDetails from "../../data/showLocationDetails";
 
 
 export default function showLocation() { 
@@ -21,20 +21,10 @@ export default function showLocation() {
     }, []);
 
     const ShowDetails=async (id:string) => {
-        var config = {
-            method: 'get',
-            url: `http://localhost:3333/location/${id}`,
-            headers: { }
-          };
-          
-          axios(config)
-          .then(function (response) {
-            console.log(JSON.stringify(response.data));
-            setLocation(response.data);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        
+       const response= showLocationDetails(id);
+        // setLocation(response);
+        /////????
         }
      
 

@@ -7,7 +7,7 @@ import SignUpPage from './components/SingUp';
 import  Home  from './components/system/home-system'
 import EditSystem from './components/system/EditSystem';
 import  List  from './components/userPage'
-import Map from './components/Map';
+import Map from './components/maps/Map';
 import '../src/css/app.css';
 
 

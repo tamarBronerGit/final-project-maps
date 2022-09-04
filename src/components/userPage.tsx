@@ -1,11 +1,10 @@
 import React from "react";
 import {useEffect, useState} from "react"
-import axios from "axios";
-import { User } from "./user";
-
-
+import { getAllUsersFromServer } from "../data/getAllUsers";
+import User from "../interfaces/User";
 
 const List=()=>{
+    
     const [users, setUsers] =useState<User[]>([]);
 
     useEffect(()=>{
@@ -13,9 +12,9 @@ const List=()=>{
     } ,[]);
 
     const getAllUsers= async () =>{
-        const data = await axios.get<User[]>('http://localhost:3333/user');
+        const data = getAllUsersFromServer();
         console.log(data);
-        setUsers(data.data);
+        // setUsers(data.data);
     }
     
     const renderUser=(): JSX.Element[]=>{

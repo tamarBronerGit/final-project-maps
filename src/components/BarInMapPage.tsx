@@ -6,11 +6,9 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import axios from 'axios';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getAuth } from 'firebase/auth';
 
-import { User } from './user';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -23,6 +21,7 @@ import Home from './system/home-system';
 import { useNavigate } from 'react-router-dom';
 import showSystemFromUser from './system/showFromUser';
 import swal from 'sweetalert';
+import { getUserById } from '../data/getUserById';
 
 
 export default function MenuAppBar() {
@@ -49,19 +48,10 @@ export default function MenuAppBar() {
       setAuth(event.target.checked);
     };
 
-    const onLoad= async() => {
-        var config = {method: 'get', url: `http://localhost:3333/user/${user?.uid}`,
-            headers: { }
-          };
-          axios(config)
-          .then(function (response) {
-            console.log((response.data));
-            swal(`Hello to ${response.data.firstName} ${response.data.lastName} `);
-        })       
-          .catch(function (error) {
-            console.log(error);
-        });
-        
+    const onLoad= async () => {
+
+       const usered=await getUserById(user?.uid);    
+      swal(`Hello to ${usered?.firstName} ${usered?.lastName}`);
 
     }
 
@@ -73,6 +63,7 @@ export default function MenuAppBar() {
         navigate(`/home`);
     }
 const showSystemUser=()=>{
+    // getSystem(user?.uid);
     showSystemFromUser(user?.uid);
 }
   
