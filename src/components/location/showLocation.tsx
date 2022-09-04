@@ -35,16 +35,15 @@ export default function showLocation() {
           .catch(function (error) {
             console.log(error);
           });
-          
+        }
      
-     }
 
-     return (
-     <Card sx={{ maxWidth: 345 }} >
+    return (
+            <Card  >
+                {/* sx={{ maxWidth: 345 }} */}
         <CardContent>
         
        <img className='img'
-             
                 
                 loading="lazy" height={"300"} width={"400"}></img>
             <form className='auth-inner'>
@@ -67,5 +66,5 @@ export default function showLocation() {
             </form>
         </CardContent>
     </Card>
-);
-    }
+    );
+}

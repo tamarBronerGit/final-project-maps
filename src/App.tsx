@@ -24,12 +24,8 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/EditSystem/:name/:id" element={< EditSystem/>} />
             <Route path="/user" element={<List />} />
-
-
             {/* <Route path="/details" element={<ShowSystem />} /> */}
-            
-
-
+        
             <Route path="/" element={<Login />} />
 
             <Route path="/map" element={<Map />} />

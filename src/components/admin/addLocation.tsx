@@ -19,7 +19,7 @@ export function FormDialog() {
     const inputCommunication =useRef<HTMLInputElement>();
     const inputDetails=useRef<HTMLInputElement>();
     const inputNotes=useRef<HTMLInputElement>();
-    }
+    
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
     };
@@ -83,7 +83,6 @@ export function FormDialog() {
             </Dialog>
         </div>
     );
-
     }
+}
 
-   
