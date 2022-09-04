@@ -5,9 +5,11 @@ import Login from './components/Login';
 import SignUpPage from './components/SingUp';
 // import BasicButtons from './components/addSystem';
 import  Home  from './components/system/home-system'
-import ShowSystem from './components/system/showSystem';
+import EditSystem from './components/system/EditSystem';
 import  List  from './components/userPage'
 import Map from './components/Map';
+import '../src/css/app.css';
+
 
 function App() {
 
@@ -20,7 +22,7 @@ function App() {
             <Route path="/signUp" element={<SignUpPage />} />
             {/* <Route path="/"element={<Auto/>} /> */}
             <Route path="/home" element={<Home />} />
-            <Route path="/ShowSystem/:name/:id" element={< ShowSystem/>} />
+            <Route path="/EditSystem/:name/:id" element={< EditSystem/>} />
             <Route path="/user" element={<List />} />
 
 
@@ -34,6 +36,7 @@ function App() {
 
           </Routes>
        </Router>
+
     </div>
   );
 }

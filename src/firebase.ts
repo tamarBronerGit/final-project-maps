@@ -17,6 +17,7 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
+import { Role } from "./components/user";
 
 const Config = {
     apiKey: "AIzaSyDooQ14f6eaCB07ie_P5bfQ8D5nUqoF_b0",
@@ -45,6 +46,7 @@ const signInWithGoogle = async () => {
         name: user.displayName,
         authProvider: "google",
         email: user.email,
+        
       });
     }
   } catch (err:any) {
@@ -62,7 +64,7 @@ const logInWithEmailAndPassword = async (email:string, password:string) => {
     alert(err.message);
   }
 };
-const registerWithEmailAndPassword = async (name:string,email:string, password:string) => {
+const registerWithEmailAndPassword = async (name:string,email:string, password:string, ) => {
     debugger;
   try {
       debugger;

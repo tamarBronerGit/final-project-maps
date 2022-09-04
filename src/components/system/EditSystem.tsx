@@ -11,10 +11,11 @@ import { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { CardContent } from '@mui/material';
 
-export default function ShowSystem() {
+
+export default function EditSystem() {
   let s = {
     topic: "",
-    urlName: "",
+    // urlName: "",
     urlImage: "",
     objectName: "",
     managerUid: "",
@@ -22,6 +23,7 @@ export default function ShowSystem() {
 };
   const [system, setSystem] = useState(s);
   const {id,name} =useParams();
+
     useEffect(() => {
         ShowDetails(id||'');
     }, []);
@@ -45,22 +47,7 @@ export default function ShowSystem() {
     }
 
   return (
-    // <Card variant="outlined" sx={{ minWidth: '320px' }}>
-    //   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-    //     <Typography level="h1" fontSize="md" sx={{ alignSelf: 'flex-start' }}>
-    //      System_Details:
-    //     </Typography>
-    //   </Box>
-    //   <AspectRatio minHeight="120px" maxHeight="200px" sx={{ my: 2 }}>
-    //     <img src="https://images.unsplash.com/photo-1527549993586-dff825b37782?crop=entropy&auto=format&fit=crop&w=3270" alt="" />
-    //   </AspectRatio>
-    //   <Box sx={{ display: 'flex' }}>
-    //     <div>
-    //       <Typography level="body3">{}</Typography>
-    //       <Typography fontSize="lg" fontWeight="lg"></Typography>
-    //     </div>
-    //   </Box>
-    // </Card>
+    
     <Card sx={{ maxWidth: 345 }} >
                     <CardContent>
                     {/* <AspectRatio minHeight="120px" maxHeight="200px" sx={{ my: 2 }}>
@@ -77,7 +64,7 @@ export default function ShowSystem() {
                                 <Typography >topic:  {system.topic}</Typography>
                             </div>
                             <div className="mb-3">
-                                <Typography >urlName:   {system.urlName}</Typography>
+                                {/* <Typography >urlName:   {system.urlName}</Typography> */}
                             </div>
                             {/* <div className="mb-3">
                                 <Typography >urlImage:   {system.urlImage}</Typography>

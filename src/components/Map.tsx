@@ -50,9 +50,7 @@ export default function Map() {
   return <div className="container">
     <Grid container spacing={2}>
     <Grid item xs={20} md={20}>
-            <div>
                 <MenuAppBar/>
-            </div>
         </Grid>
       <Grid item xs={60} md={9}>
         <div className="map">

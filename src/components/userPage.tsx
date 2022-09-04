@@ -1,17 +1,9 @@
 import React from "react";
 import {useEffect, useState} from "react"
 import axios from "axios";
+import { User } from "./user";
 
-interface User{
-    _id: string
-    uid:string;
-    role: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    email: string;
-    _v:number
-}
+
 
 const List=()=>{
     const [users, setUsers] =useState<User[]>([]);

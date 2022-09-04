@@ -6,64 +6,115 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import axios from 'axios';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { getAuth } from 'firebase/auth';
+
+import { User } from './user';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import DialogContentText from '@mui/material/DialogContentText';
+import { InputLabel } from '@mui/material';
+import Home from './system/home-system';
+import { useNavigate } from 'react-router-dom';
+import showSystemFromUser from './system/showFromUser';
+import swal from 'sweetalert';
+
 
 export default function MenuAppBar() {
+    const navigate = useNavigate();
+
+  const [open, setOpen] = React.useState(false);
   const [auth, setAuth] = React.useState(true);
+  const _auth= getAuth();
+  const [user,loading,error]=useAuthState(_auth);
+  
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    
+    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget);
+    };  
+    const handleClickOpen = () => {
+        setOpen(true);
+        onLoad();
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setAuth(event.target.checked);
+    };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
+    const onLoad= async() => {
+        var config = {method: 'get', url: `http://localhost:3333/user/${user?.uid}`,
+            headers: { }
+          };
+          axios(config)
+          .then(function (response) {
+            console.log((response.data));
+            swal(`Hello to ${response.data.firstName} ${response.data.lastName} `);
+        })       
+          .catch(function (error) {
+            console.log(error);
+        });
+        
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+    }
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+   const handleProfile=()=>{
+    handleClickOpen();
+    handleClose();
+    }
+    const showAll=()=>{
+        navigate(`/home`);
+    }
+const showSystemUser=()=>{
+    showSystemFromUser(user?.uid);
+}
+  
 
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch checked={auth} onChange={handleChange} aria-label="login switch"/>
-          }
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <MenuIcon />
+  return(<div>
+
+  <Box sx={{ flexGrow: 1 }}>
+  <AppBar position="static" >
+    <Toolbar>
+      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+       Welcome To The App
+      </Typography>
+      <Button color="inherit" onClick={showAll}>Show all systems</Button>
+      <Button color="inherit" onClick={showSystemUser}>show System From Me</Button>
+      {auth && (
+        <div>
+          <IconButton size="large" aria-label="account of current user"
+            aria-controls="menu-appbar" aria-haspopup="true" onClick={handleProfile} color="inherit" >
+            <AccountCircle />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            here text
-          </Typography>
-          {auth && (
-            <div>
-              <IconButton size="large" aria-label="account of current user"
-            aria-controls="menu-appbar" aria-haspopup="true" onClick={handleMenu} color="inherit" >
-                <AccountCircle />
-              </IconButton>
-              <Menu  id="menu-appbar" anchorEl={anchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
-                keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right', }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu>
-            </div>
-          )}
-        </Toolbar>
-      </AppBar>
-    </Box>
-  );
+        </div>
+      )}
+    </Toolbar>
+  </AppBar>
+  <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Add new system</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    Your details here: 😊
+                </DialogContentText>
+                <Box component="form"
+                    sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' },}}
+                    noValidate autoComplete="off">
+                    <div>
+                        <InputLabel>yourName: {}</InputLabel>
+                    </div>
+                </Box>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose}>OK</Button>
+            </DialogActions>
+    </Dialog>
+</Box>
+</div>)
 }
