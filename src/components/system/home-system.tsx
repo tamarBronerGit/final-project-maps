@@ -15,10 +15,9 @@ import { useNavigate } from 'react-router-dom';
 import MenuAppBar from "../BarInMapPage";
 import { async } from "@firebase/util";
 import System from "../../interfaces/System";
-import { getAllSystemFromServer } from "../../data/getAllSystemsFromServer";
-import { getSystemsByUser } from "../../data/getSystemsByUser";
-import DeleteSystemFromServer from "../../data/deleteSystem";
 
+import { observer } from "mobx-react";
+import systemStore from "../../data/system";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -32,13 +31,13 @@ const Home = () => {
     }, []);
 
     const getAllSystem = async () => {
-        const data = await getAllSystemFromServer();
+        const data = await systemStore.getAllSystemFromServer();
         console.log(data);
         if(data) setSystems(data);
     }
 
     const getSystem=async(managerUid:string)=>{
-        const data=await getSystemsByUser(managerUid);
+        const data=await systemStore.getSystemsByUser(managerUid);
         console.log(data);
         if(data) setSystems(data);
     }
@@ -46,8 +45,7 @@ const Home = () => {
     
     const DeleteSystem= async (id:string) => {
         
-        DeleteSystemFromServer(id);
-        
+        systemStore.DeleteSystemFromServer(id);
     }
 
     const ShowDetails= async (id:string) => {
@@ -100,4 +98,4 @@ const Home = () => {
         </div>
     )
 }
-export default Home;
+export default observer(Home) ;

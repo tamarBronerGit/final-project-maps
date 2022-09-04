@@ -8,7 +8,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
-import addLocationMap from "../../data/addLocation";
+import locationStore from "../../data/location";
+import { observer } from "mobx-react-lite";
 
 export function FormDialog() {
     const [open, setOpen] = React.useState(false);
@@ -41,7 +42,7 @@ export function FormDialog() {
            }
            console.log(dataLocation)
         try {   
-            addLocationMap(dataLocation)  ;
+            // await locationStore.createLocationsBySystemId(dataLocation)  ;
             // let tempList = await res.data;
             // console.log(res)
             alert(`add ${dataLocation.details}successfully`);
@@ -86,3 +87,4 @@ export function FormDialog() {
     }
 }
 
+// export default observer(FormDialog);

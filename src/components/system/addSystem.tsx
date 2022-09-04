@@ -12,7 +12,7 @@ import { InputBaseComponentProps } from '@mui/material';
 import { useRef } from 'react';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import addNewSystem from '../../data/addNewSystem';
+// import addNewSystem from '../../data/addNewSystem';
 
 export function FormDialog() {
     const [open, setOpen] = React.useState(false);
@@ -39,10 +39,7 @@ export function FormDialog() {
         setOpen(false);
     };
 
-
-
     const addSystem= async()=>{
-debugger
             const dataSystem={
                 subject:inputSubject.current?.value,
                 urlName:inputName.current?.value,              
@@ -53,10 +50,12 @@ debugger
            }
            console.log(dataSystem)
         try {     
-            const sss= await addNewSystem( dataSystem);
-            // const res = await axios.post(`http://localhost:3333/system/`,dataSystem);
-            // let tempList = await res.data;
-            console.log(sss);
+            // const sss= await addNewSystem( dataSystem);
+
+/*// const res = await axios.post(`http://localhost:3333/system/`,dataSystem);
+            // let tempList = await res.data;*/
+            // console.log(sss);
+
             alert(`add ${dataSystem.subject} successfully`);
             } 
         

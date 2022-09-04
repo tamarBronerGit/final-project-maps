@@ -1,7 +1,9 @@
 import React from "react";
 import {useEffect, useState} from "react"
-import { getAllUsersFromServer } from "../data/getAllUsers";
 import User from "../interfaces/User";
+
+import { observer } from "mobx-react";
+import UserStore from '../data/user';
 
 const List=()=>{
     
@@ -12,7 +14,7 @@ const List=()=>{
     } ,[]);
 
     const getAllUsers= async () =>{
-        const data = getAllUsersFromServer();
+        const data = UserStore.get();
         console.log(data);
         // setUsers(data.data);
     }
@@ -36,4 +38,4 @@ const List=()=>{
     </ul>
    )
 };
-export default List;
+export default observer(List) ;
