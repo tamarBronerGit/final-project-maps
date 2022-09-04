@@ -1,11 +1,13 @@
 import { CardContent, Typography } from "@mui/material";
+import { observer } from "mobx-react-lite";
 import React, { useEffect, useRef, useState } from "react";
 import { Card } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import showLocationDetails from "../../data/showLocationDetails";
+import locationStore from "../../data/location";
+import showLocationDetails from "../../data/location";
 
 
-export default function showLocation() { 
+ function showLocation() { 
      let l ={
         address: "",
         owner:"",
@@ -22,7 +24,7 @@ export default function showLocation() {
 
     const ShowDetails=async (id:string) => {
         
-       const response= showLocationDetails(id);
+       const response= await locationStore.getLocationsBySystemId(id);
         // setLocation(response);
         /////????
         }
@@ -58,3 +60,5 @@ export default function showLocation() {
     </Card>
     );
 }
+
+export default observer(showLocation);
