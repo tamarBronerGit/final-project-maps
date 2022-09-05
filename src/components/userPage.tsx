@@ -14,9 +14,9 @@ const List=()=>{
     } ,[]);
 
     const getAllUsers= async () =>{
-        const data = UserStore.get();
+        const data =await UserStore.get();
         console.log(data);
-        // setUsers(data.data);
+        setUsers(data);
     }
     
     const renderUser=(): JSX.Element[]=>{
