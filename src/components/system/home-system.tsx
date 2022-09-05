@@ -36,7 +36,7 @@ const Home = () => {
     }
 
     const getSystem=async(managerUid:string)=>{
-        const data=await systemStore.getSystemsByUser(managerUid);
+        const data=await systemStore.getSystems(managerUid);
         console.log(data);
         if(data) setSystems(data);
     }
@@ -45,6 +45,7 @@ const Home = () => {
     const DeleteSystem= async (id:string) => {
         
         systemStore.DeleteSystemFromServer(id);
+        renderHome();
     }
 
     const ShowDetails= async (id:string) => {

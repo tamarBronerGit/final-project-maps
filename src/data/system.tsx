@@ -17,7 +17,7 @@ export const addSystem=async(dataSystem:System )=>
 {
     try {     
         const res = await axios.post(`http://localhost:3333/system/`,dataSystem);
-        console.log(res);
+        console.log(res.data);
         return res.data;
     }
     catch (error) { console.log(error); }
@@ -32,7 +32,7 @@ export const getAllSystem=async()=>
         console.log('error-getUserFromServer ');
     }
 }
-export const getSystemsByUser=async(managerUid:string)=>
+export const getSystems=async(managerUid:string)=>
 {
     try {
         const userByUid = await axios.get(`http://localhost:3333/user/${managerUid}`);
@@ -45,6 +45,16 @@ export const getSystemsByUser=async(managerUid:string)=>
     catch (error) {
         console.log('error-getUserFromServer ');
     }
+}
+export const getSystemsByUrlName = async (urlName: string) => {
+
+    try {
+        const system = await axios.get(`http://localhost:3333/system/getSystemByUrlName/${urlName}`)
+        return system.data;
+    } catch (error) {
+        console.error(error);
+    }
+
 }
 
 
@@ -62,10 +72,14 @@ class Store{
         this.systems=await getAllSystem();
         return this.systems;
     }
-    async getSystemsByUser(managerUid:string):Promise<System[]>
+    async getSystems(managerUid:string):Promise<System[]>
     {
-        this.systems=await getSystemsByUser(managerUid);
+        this.systems=await getSystems(managerUid);
         return this.systems;
+    }
+    async getSystemsByUrlName(urlName: string): Promise<System> {
+        this.system = await getSystemsByUrlName(urlName);
+        return this.system;
     }
     async addNewSystem(dataSystem:any ):Promise<System>
     {
