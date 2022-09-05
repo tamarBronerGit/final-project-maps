@@ -12,6 +12,7 @@ type DirectiosResult = google.maps.DirectionsResult;
 type MapOptions = google.maps.MapOptions;
 
 export default function Map() {
+    const pinColor='#000000';
     const [office, setOffice] = useState<LatLngLiteral>();
     const [directions, setDirections] = useState<DirectiosResult>();
     const mapRef = useRef<GoogleMap>()
@@ -30,6 +31,8 @@ export default function Map() {
     const onLoad = useCallback((map: any) => (mapRef.current = map), []);
 
     const houses = useMemo(() => generateHouses(), [center]);
+    console.log(houses.map(element => element.lat));
+    
 
     const fetchDirections = (_houses: LatLngLiteral) => {
         if (!office) return;
@@ -71,22 +74,14 @@ export default function Map() {
                 {office && (
                     <>
                        <Marker position={office} />
-                          {/* async=()=> { 
-                        (await h).map((house: any) =>{
-                            const position:LatLngLiteral={lat:house.location_geolocation.lat,lng:house.location_geolocation.len}
-                            console.log(position);
-                             return(
-                             <Marker key={house.location_geolocation.lat} 
-                             position={position}
-                                onClick={() => { fetchDirections(house) }} />)})
-                             
-                        }
-                     */}
                                      <MarkerClusterer>
               {(clusterer:any|MarkerClusterer | Readonly<MarkerClusterer>): any=>
                houses.map((h:LatLngLiteral) => (
               <Marker
                 key={h.lat}
+                icon={{path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                  strokeColor: "black",
+                  scale: 5}}
                 position={h}
                 clusterer={clusterer}
                 onClick={()=>{
@@ -152,38 +147,6 @@ const farOptions = {
     strokeColor: "#FF5252",
     fillColor: "#FF5252"
 };
-
-// const generateHouses = (position: LatLngLiteral) => {
-//     // alert("generateHouses")
-//     const houses: Array<LatLngLiteral> = [];
-//     for (let i = 0; i < 5; i++) {
-//         const direction = Math.random() < 0.5 ? -2 : 2;
-//         houses.push({
-//             lat: position.lat * Math.random() / direction,
-//             lng: position.lng * Math.random() / direction,
-//         });
-//     }
-//     return houses;
-// }
-// const generateHouses  =async(position: LatLngLiteral)=> {
-//         let houses: Array<LatLngLiteral|Location> = [];
-//         // for (let i = 0; i < 5; i++) {
-//         //     const direction = Math.random() < 0.5 ? -2 : 2;
-//         //     houses.push({
-//         //         lat: position.lat * Math.random() / direction,
-//         //         lng: position.lng * Math.random() / direction,
-//         //     });
-//         // }
-//         // async () => {
-//             const data = await axios.get('http://localhost:3333/location');
-//             // const houses: Array<LatLngLiteral> = [];
-//             // alert(data.data)
-//             console.log(data.data);
-//             houses=data.data;
-//             // return data.data;
-//         // }
-//         return houses;
-//     }
 const generateHouses= ()=>
 {
   let data;
