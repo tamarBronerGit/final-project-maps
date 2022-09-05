@@ -67,7 +67,7 @@ function MenuAppBar() {
     }
   const showSystemFromUser=()=> {
     if(user?.uid)
-     systemStore.getSystemsByUser(user?.uid);
+     systemStore.getSystems(user?.uid);
   } 
  
 

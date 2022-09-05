@@ -5,6 +5,6 @@ interface Manager{
     active:boolean;
     display_name:string;
     role:string;
-    invitation_sent: [];
+    // invitation_sent: [];
 }
 export default Manager;
