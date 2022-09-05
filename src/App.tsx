@@ -26,9 +26,6 @@ function App() {
             <Route path="/EditSystem/:name/:id" element={< EditSystem/>} />
             <Route path="/user" element={<List />} />
             {/* <Route path="/details" element={<ShowSystem />} /> */}
-        <Route path="/addLocation" element={< FormDialog/>} />
-            {/* <Route path="/" element={<Login />} /> */}
-
             <Route path="/map" element={<Map />} />
 
           </Routes>
