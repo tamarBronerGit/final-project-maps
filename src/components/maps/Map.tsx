@@ -29,7 +29,7 @@ export default function Map() {
 
     const onLoad = useCallback((map: any) => (mapRef.current = map), []);
 
-    const houses = useMemo(() => generateHouses(JerusalemPosition), [center]);
+    const houses = useMemo(() => generateHouses(), [center]);
 
     const fetchDirections = (_houses: LatLngLiteral) => {
         if (!office) return;
@@ -71,8 +71,8 @@ export default function Map() {
                 {office && (
                     <>
                        <Marker position={office} />
-                          async=()=> { 
-                        (await houses).map((house: any) =>{
+                          {/* async=()=> { 
+                        (await h).map((house: any) =>{
                             const position:LatLngLiteral={lat:house.location_geolocation.lat,lng:house.location_geolocation.len}
                             console.log(position);
                              return(
@@ -81,22 +81,21 @@ export default function Map() {
                                 onClick={() => { fetchDirections(house) }} />)})
                              
                         }
-                    
-                        {/* <Marker position={office} />
-                        {houses.map(house => <Marker key={house.lat} position={house.lat,house.len}
-                        onClick={()=>{fetchDirections(house)}} />)} */}
-                        {/* <MarkerClusterer>
-                            { (clusterer)=>
-                                houses.map((house) =>(
-                                 <Marker 
-                                 key={house.lat}
-                                 position={house}
-                                 clusterer={clusterer}
-                                    />
-                                 ) )
-                               
-                            }
-                        </MarkerClusterer> */}
+                     */}
+                                     <MarkerClusterer>
+              {(clusterer:any|MarkerClusterer | Readonly<MarkerClusterer>): any=>
+               houses.map((h:LatLngLiteral) => (
+              <Marker
+                key={h.lat}
+                position={h}
+                clusterer={clusterer}
+                onClick={()=>{
+                  fetchDirections(h)
+                }}
+                />
+                ))
+                }
+             </MarkerClusterer>
            
               <Marker position={office} />
               <Circle center={office} radius={15000} options={closeOptions} />
@@ -166,22 +165,41 @@ const farOptions = {
 //     }
 //     return houses;
 // }
-const generateHouses  =async(position: LatLngLiteral)=> {
-        let houses: Array<LatLngLiteral|Location> = [];
-        // for (let i = 0; i < 5; i++) {
-        //     const direction = Math.random() < 0.5 ? -2 : 2;
-        //     houses.push({
-        //         lat: position.lat * Math.random() / direction,
-        //         lng: position.lng * Math.random() / direction,
-        //     });
-        // }
-        // async () => {
-            const data = await axios.get('http://localhost:3333/location');
-            // const houses: Array<LatLngLiteral> = [];
-            // alert(data.data)
-            console.log(data.data);
-            houses=data.data;
-            // return data.data;
-        // }
-        return houses;
-    }
+// const generateHouses  =async(position: LatLngLiteral)=> {
+//         let houses: Array<LatLngLiteral|Location> = [];
+//         // for (let i = 0; i < 5; i++) {
+//         //     const direction = Math.random() < 0.5 ? -2 : 2;
+//         //     houses.push({
+//         //         lat: position.lat * Math.random() / direction,
+//         //         lng: position.lng * Math.random() / direction,
+//         //     });
+//         // }
+//         // async () => {
+//             const data = await axios.get('http://localhost:3333/location');
+//             // const houses: Array<LatLngLiteral> = [];
+//             // alert(data.data)
+//             console.log(data.data);
+//             houses=data.data;
+//             // return data.data;
+//         // }
+//         return houses;
+//     }
+const generateHouses= ()=>
+{
+  let data;
+  const h: Array<LatLngLiteral>=[];
+  try {
+        axios.get('http://localhost:3333/location').then((res)=>{data=res
+       res.data.forEach((l: { location_geolocation: { lat: any; len: any; }; })=>{h.push({
+       lat:l.location_geolocation.lat,
+       lng:l.location_geolocation.len
+    })})
+    console.log(h);
+  });
+  
+  } catch (error) {
+    console.log(error);
+  }
+  return h;
+
+}
