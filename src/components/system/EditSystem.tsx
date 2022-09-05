@@ -10,17 +10,18 @@ import axios from 'axios';
 import { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { CardContent } from '@mui/material';
+import systemStore from '../../data/system';
 
 
 export default function EditSystem() {
   let s = {
     topic: "",
-    // urlName: "",
+    urlName: "",
     urlImage: "",
     objectName: "",
     managerUid: "",
     description: "",
-};
+  };
   const [system, setSystem] = useState(s);
   const {id,name} =useParams();
 
@@ -29,21 +30,26 @@ export default function EditSystem() {
     }, []);
 
     const ShowDetails=async (id:string) => {
-        var config = {
-            method: 'get',
-            url: `http://localhost:3333/system/${id}`,
-            headers: { }
-          };
-          
-          axios(config)
-          .then(function (response) {
-            console.log(JSON.stringify(response.data));
-            setSystem(response.data);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-          
+          const config = {
+              method: 'get',
+              url: `http://localhost:3333/system/${id}`,
+              headers: { }
+            };
+      
+            axios(config)
+            .then(function (response) {
+              console.log(JSON.stringify(response.data));
+              setSystem(response.data);
+              return(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+        // debugger
+      // const sysStore= await systemStore.getSystemsByUrlName(name||'');
+      // console.log(sysStore);
+      // return sysStore;
     }
 
   return (

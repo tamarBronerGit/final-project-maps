@@ -47,8 +47,9 @@ export const getSystems=async(managerUid:string)=>
     }
 }
 export const getSystemsByUrlName = async (urlName: string) => {
-
+debugger
     try {
+        debugger
         const system = await axios.get(`http://localhost:3333/system/getSystemByUrlName/${urlName}`)
         return system.data;
     } catch (error) {
