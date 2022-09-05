@@ -25,7 +25,7 @@ import showLocationDetails from "../../data/location";
     const ShowDetails=async (id:string) => {
         
        const response= await locationStore.getLocationsBySystemId(id);
-        // setLocation(response);
+    //   setLocation(response);
         /////????
         }
      
