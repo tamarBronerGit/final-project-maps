@@ -9,8 +9,6 @@ import EditSystem from './components/system/EditSystem';
 import  List  from './components/userPage'
 import Map from './components/maps/Map';
 import '../src/css/app.css';
-import { FormDialog } from './components/system/addSystem';
-
 
 function App() {
 
@@ -20,17 +18,13 @@ function App() {
        <Router>
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/map" element={<Map />} />
             <Route path="/signUp" element={<SignUpPage />} />
-            {/* <Route path="/"element={<Auto/>} /> */}
             <Route path="/home" element={<Home />} />
             <Route path="/EditSystem/:name/:id" element={< EditSystem/>} />
             <Route path="/user" element={<List />} />
             {/* <Route path="/details" element={<ShowSystem />} /> */}
-        <Route path="/addLocation" element={< FormDialog/>} />
-            {/* <Route path="/" element={<Login />} /> */}
-
-            <Route path="/map" element={<Map />} />
-
+            
           </Routes>
        </Router>
 
