@@ -1,6 +1,6 @@
 import { Circle, DirectionsRenderer, GoogleMap, Marker, MarkerClusterer, useLoadScript } from "@react-google-maps/api";
 import cluster from "cluster";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState,useEffect } from "react";
 import Grid from '@mui/material/Grid';
 import MenuAppBar from "../BarInMapPage";
 import AutoComplete from "./AutoComplete";
@@ -15,7 +15,8 @@ type MapOptions = google.maps.MapOptions;
 
 export default function Map() {
     const pinColor='#000000';
-    const [office, setOffice] = useState<LatLngLiteral>();
+    // const [office,setOffice]=useState<LatLngLiteral|any>()
+    const [office, setOffice] = useState<LatLngLiteral|any>();
     const [directions, setDirections] = useState<DirectiosResult>();
     const mapRef = useRef<GoogleMap>()
     const center = useMemo<LatLngLiteral>(() => ({ lat: 32, lng: 35 }), []);
@@ -24,7 +25,6 @@ export default function Map() {
         disableDefaultUi: true,
         clickableIcons: true,
     }), []);
-
     const optionsMarker = {
         imagePath:
             'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m', // so you must have m1.png, m2.png, m3.png, m4.png, m5.png and m6.png in that folder
@@ -35,6 +35,11 @@ export default function Map() {
     const houses = useMemo(() => generateHouses(), [center]);
     console.log(houses.map(element => element.lat));
     
+    useEffect(() => {
+      navigator.geolocation.getCurrentPosition(function(position){
+      setOffice({lat:position.coords.latitude,lng:position.coords.longitude});
+    })
+      },[]);
 
     const fetchDirections = (_houses: LatLngLiteral) => {
         if (!office) return;
