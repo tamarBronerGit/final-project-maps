@@ -6,6 +6,8 @@ import MenuAppBar from "../BarInMapPage";
 import AutoComplete from "./AutoComplete";
 import Distance from "./Distance";
 import axios from "axios";
+import { Button } from "@mui/material";
+import { FormDialogLocation } from "../admin/addLocation";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectiosResult = google.maps.DirectionsResult;
@@ -108,6 +110,8 @@ export default function Map() {
                 }} />
                 {!office && <p>Enter the address of you</p>}
                 {directions&&<Distance leg={directions.routes[0].legs[0]}/>}
+                <FormDialogLocation/>
+              {/* <Button onClick={FormDialogLocation} >Click to add location</Button> */}
         </div></Grid>
     </Grid>
 

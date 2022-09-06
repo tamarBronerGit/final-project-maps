@@ -9,10 +9,11 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import createNewUser from '../data/createNewUser';
 import User, { Role } from '../interfaces/User';
+import UserStore from '../data/user';
+import { observer } from 'mobx-react';
 
- export default function SignUpPage() {
+ function SignUpPage() {
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -35,8 +36,8 @@ import User, { Role } from '../interfaces/User';
   
   
    const createUser= async (newUser:User) => {
-    createNewUser(newUser);
-    console.log(error);
+      await UserStore.add(newUser);
+      console.log(error);
     
 }
 
@@ -159,3 +160,4 @@ console.log("create failed");
     )
 }
 
+export default observer(SignUpPage)

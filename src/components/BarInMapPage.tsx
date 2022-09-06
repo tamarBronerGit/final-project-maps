@@ -19,12 +19,14 @@ import DialogContentText from '@mui/material/DialogContentText';
 import { InputLabel } from '@mui/material';
 import Home from './system/home-system';
 import { useNavigate } from 'react-router-dom';
-import showSystemFromUser from './system/showFromUser';
 import swal from 'sweetalert';
-import { getUserById } from '../data/getUserById';
+
+import { observer } from "mobx-react";
+import systemStore from "../data/system";
+import UserStore from '../data/user';
 
 
-export default function MenuAppBar() {
+function MenuAppBar() {
     const navigate = useNavigate();
 
   const [open, setOpen] = React.useState(false);
@@ -49,10 +51,11 @@ export default function MenuAppBar() {
     };
 
     const onLoad= async () => {
-
-       const usered=await getUserById(user?.uid);    
-      swal(`Hello to ${usered?.firstName} ${usered?.lastName}`);
-
+      if(user?.uid){
+        const usered=await UserStore.getById(user?.uid);    
+        swal(`Hello to ${usered?.firstName} ${usered?.lastName}`);
+      }
+       
     }
 
    const handleProfile=()=>{
@@ -62,11 +65,11 @@ export default function MenuAppBar() {
     const showAll=()=>{
         navigate(`/home`);
     }
-const showSystemUser=()=>{
-    // getSystem(user?.uid);
-    showSystemFromUser(user?.uid);
-}
-  
+  const showSystemFromUser=()=> {
+    if(user?.uid)
+     systemStore.getSystems(user?.uid);
+  } 
+ 
 
   return(<div>
 
@@ -77,7 +80,7 @@ const showSystemUser=()=>{
        Welcome To The App
       </Typography>
       <Button color="inherit" onClick={showAll}>Show all systems</Button>
-      <Button color="inherit" onClick={showSystemUser}>show System From Me</Button>
+      <Button color="inherit" onClick={showSystemFromUser}>show System From Me</Button>
       {auth && (
         <div>
           <IconButton size="large" aria-label="account of current user"
@@ -109,3 +112,5 @@ const showSystemUser=()=>{
 </Box>
 </div>)
 }
+
+export default  observer(MenuAppBar);
