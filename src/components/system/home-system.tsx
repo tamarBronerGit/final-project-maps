@@ -41,11 +41,9 @@ const Home = () => {
         if(data) setSystems(data);
     }
     
-    
     const DeleteSystem= async (id:string) => {
         
-        systemStore.DeleteSystemFromServer(id);
-        renderHome();
+         systemStore.DeleteSystemFromServer(id);
     }
 
     const ShowDetails= async (id:string) => {
@@ -53,7 +51,6 @@ const Home = () => {
         EditSystem();
     }
 
-    const renderHome=()=>{
         return (<div>
             <MenuAppBar/>
             <FormDialog/>
@@ -78,9 +75,9 @@ const Home = () => {
                             <CardActions>
 
 
-                                {/* <Button size="small" onClick={()=>ShowDetails(system._id)}>Show details</Button> */}
+                                {/* <Button size="small" onClick={()=>ShowDetails(system._id)}>Show details system</Button> */}
 
-                                <Button size="small" onClick={()=> navigate(`/EditSystem/${system.subject}/${system._id}`)}>Show system</Button>
+                                <Button size="small" onClick={()=> navigate(`/EditSystem/${system.subject}/${system._id}`)}>Show details system</Button>
 
                                 <Button size="small" onClick={()=>DeleteSystem(system._id)}>Delete this system</Button>
                             </CardActions>
@@ -89,13 +86,8 @@ const Home = () => {
                     </div>
             );
             })
-        }</div> </div>)
-    }
-
-    return (
-        <div>
-             {renderHome()}
-        </div>
-    )
+        }</div>
+     </div>)
+    
 }
 export default observer(Home) ;
