@@ -5,7 +5,7 @@ import Manager from "../interfaces/Manager";
 export const getManager = async (managerId:string) => {
 
     try {
-        const res= await axios.get(`http://localhost:3333/manager${managerId}`);
+        const res= await axios.get(`http://localhost:3333/manager/${managerId}`);
         return res.data;
     } catch (error) {
         console.error(error);

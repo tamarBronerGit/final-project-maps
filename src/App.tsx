@@ -9,6 +9,7 @@ import EditSystem from './components/system/EditSystem';
 import List from './components/userPage'
 import Map from './components/maps/Map';
 import '../src/css/app.css';
+import MyHome from './components/system/myHome';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/EditSystem/:name/:id" element={< EditSystem />} />
           <Route path="/user" element={<List />} />
+          <Route path="/myHome" element={<MyHome/>}/>
           {/* <Route path="/details" element={<ShowSystem />} /> */}
 
         </Routes>

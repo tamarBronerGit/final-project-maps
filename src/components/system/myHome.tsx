@@ -5,66 +5,32 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import axios from "axios";
 import '../../css/app.css'
 import EditSystem from "./EditSystem";
 import { useNavigate } from 'react-router-dom';
 import MenuAppBar from "../BarInMapPage";
 import FormDialog from "./addSystem";
-import { async } from "@firebase/util";
 import System from "../../interfaces/System";
 import { observer } from "mobx-react";
 import systemStore from "../../data/system";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import UserStore from "../../data/user";
-import managerStore from "../../data/manager";
 
-const Home = () => {
+const MyHome = () => {
     const navigate = useNavigate();
 
     const [systems, setSystems] = useState<System[]>([]);
 
     const _auth= getAuth();
     const [user,loading,error]=useAuthState(_auth);
-    const [manager, setManager]= useState('');
-    const [isOwner, setOwner] = useState('');
-
-    
-      /*componentDidMount () {
-        // Take is Manager data
-          .then(data => this.setState({ ownerOf: data.systemId, isAdmin: data.isAdmin }));
-      }*/
-    
-     
-    const isManager=async ()=>{
-      if(user?.uid){
-        const userCome= UserStore.getById(user?.uid); 
-        const _id=(await userCome)._id;
-        if(_id) {
-            const manager= await managerStore.getManager(_id);
-            const onOwner=(await manager).system_id;
-            const manager_id=(await manager).user_id;
-            setManager(manager_id);
-            setOwner(onOwner);
-        }
-     }
-    }
     
     useEffect(() => {
         //if manager/customer
-        isManager();
-        getAllSystem();
+        if(user?.uid){
+        getSystem(user?.uid);}
         
     }, []);
-
-    const getAllSystem = async () => {
-        const data = await systemStore.getAllSystemFromServer();
-        console.log(data);
-        if(data) setSystems(data);
-    }
 
     const getSystem=async(managerUid:string)=>{
         const data=await systemStore.getSystems(managerUid);
@@ -77,10 +43,6 @@ const Home = () => {
          systemStore.DeleteSystemFromServer(id);
     }
 
-    const ShowDetails= async (id:string) => {
-        // navigate(`/ShowSystem/hello/${systems.urlName}/${systems._id}`)
-        EditSystem();
-    }
 
         return (<div>
             <MenuAppBar/>
@@ -109,7 +71,7 @@ const Home = () => {
                                 
                                 {/* { (this.state.isAdmin || this.state.ownerOf === system.systemId ) && (<Button ....> delete </Button>)} */}
                                 {/* {(isOwner===system._id)&&} */}
-                                {(isOwner===system._id)&&<Button size="small" onClick={()=>DeleteSystem(system._id)}>Delete this system</Button>}
+                                <Button size="small" onClick={()=>DeleteSystem(system._id)}>Delete this system</Button>
                             </CardActions>
                         </Card>
                         <br/>
@@ -121,4 +83,4 @@ const Home = () => {
      </div>)
     
 }
-export default observer(Home) ;
+export default observer(MyHome) ;
