@@ -62,13 +62,16 @@ function MenuAppBar() {
     handleClickOpen();
     handleClose();
     }
+    
     const showAll=()=>{
         navigate(`/home`);
     }
-  const showSystemFromUser=()=> {
-    if(user?.uid)
-     systemStore.getSystems(user?.uid);
-  } 
+
+    const showSystemFromUser=()=> {
+      if(user?.uid)
+       systemStore.getSystems(user?.uid);
+      navigate('/myHome');
+    } 
  
 
   return(<div>
