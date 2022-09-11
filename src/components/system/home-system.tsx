@@ -105,7 +105,7 @@ const Home = () => {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small" onClick={()=> navigate(`/EditSystem/${system.subject}/${system._id}`)}>Show details</Button>
+                                <Button size="small" onClick={()=> navigate(`/EditSystem/${system.urlName}`)}>Show details</Button>
                                 
                                 {/* { (this.state.isAdmin || this.state.ownerOf === system.systemId ) && (<Button ....> delete </Button>)} */}
                                 {/* {(isOwner===system._id)&&} */}
