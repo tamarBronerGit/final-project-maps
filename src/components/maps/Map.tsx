@@ -8,6 +8,7 @@ import Distance from "./Distance";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { FormDialogLocation } from "../admin/addLocation";
+import { CheckBox } from "@mui/icons-material";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectiosResult = google.maps.DirectionsResult;
@@ -116,8 +117,12 @@ export default function Map() {
                 }} />
                 {!office && <p>Enter the address of you</p>}
                 {directions&&<Distance leg={directions.routes[0].legs[0]}/>}
+                {/*באופשן... כאן צריך לעבור על כל הנקודות, ולהציג לכל נקודה פרטים */}
+                <select name="test" id="test" value="enter location">
+                  <option value="one">one</option>
+                  <option value="two">two</option>
+                </select>
                 <FormDialogLocation/>
-              {/* <Button onClick={FormDialogLocation} >Click to add location</Button> */}
         </div></Grid>
     </Grid>
 
