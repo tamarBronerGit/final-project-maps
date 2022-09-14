@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import User, { Role } from '../interfaces/User';
 import UserStore from '../data/user';
 import { observer } from 'mobx-react';
+import swal from 'sweetalert';
 
  function SignUpPage() {
     const navigate = useNavigate();
@@ -26,6 +27,7 @@ import { observer } from 'mobx-react';
 
     useEffect(() => {
     if (loading) {
+      swal(`Welcome to ${user?.email} `)
       return;
     }
       if (user) {

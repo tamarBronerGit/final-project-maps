@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
+import swal from 'sweetalert';
 // import '../css/Login.css'
 
  export default function LoginPage(){
@@ -23,11 +24,10 @@ import CssBaseline from '@mui/material/CssBaseline';
     if (user)  {
       console.log('if user');
       console.log(user);
-      user.getIdToken().then((value=>{
-      const token=value;
+      
+      user.getIdToken().then((value=>{ const token=value;
       console.log(token);
     }));
-    
       // navigate(`/HomePage/${user.uid}`);
       navigate(`/map`);   
     }

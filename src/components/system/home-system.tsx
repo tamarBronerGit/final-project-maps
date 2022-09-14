@@ -21,6 +21,9 @@ import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import UserStore from "../../data/user";
 import managerStore from "../../data/manager";
+import locationStore from "../../data/location";
+import swal from "sweetalert";
+
 
 const Home = () => {
     const navigate = useNavigate();
@@ -77,6 +80,19 @@ const Home = () => {
          systemStore.DeleteSystemFromServer(id);
     }
 
+    const getLoactionSystem= async (system:System) => {
+        
+        const data= await locationStore.getLocationsBySystemId(system._id);
+        if(data) 
+       await data.forEach((d)=>alert(`location's details:
+                                    \n name: ${d.name},
+                                    \n lat: ${d.location_geolocation.lat}
+                                    \n len: ${d.location_geolocation.len}
+                                    \n communication_details: ${d.communication_details.email}
+                                     / ${d.communication_details.phone}
+                                    \n See you! 😀 `));
+    }
+
     const ShowDetails= async (id:string) => {
         // navigate(`/ShowSystem/hello/${systems.urlName}/${systems._id}`)
         EditSystem();
@@ -99,14 +115,17 @@ const Home = () => {
                                     <div>
                                         <th>id: {system._id}</th>
                                         <tr>manager_id  :{system.manager_id}</tr>           
-                                        <tr>subject  :{system.subject}</tr> 
+                                        <tr>subject  :{system.subject}</tr>
+                                        <tr>description  :{system.description}</tr> 
                                         <br /> 
                                     </div>
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small" onClick={()=> navigate(`/EditSystem/${system.subject}/${system._id}`)}>Show details</Button>
-                                
+                                <Button size="small" onClick={()=> navigate(`/EditSystem/${system.urlName}`)}>Show details</Button>
+                                <Button size="small" onClick={()=>getLoactionSystem(system)}>Show locations details</Button>
+
+
                                 {/* { (this.state.isAdmin || this.state.ownerOf === system.systemId ) && (<Button ....> delete </Button>)} */}
                                 {/* {(isOwner===system._id)&&} */}
                                 {(isOwner===system._id)&&<Button size="small" onClick={()=>DeleteSystem(system._id)}>Delete this system</Button>}

@@ -17,6 +17,7 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
+import swal from "sweetalert";
 
 const Config = {
     apiKey: "AIzaSyDooQ14f6eaCB07ie_P5bfQ8D5nUqoF_b0",
@@ -58,18 +59,18 @@ const logInWithEmailAndPassword = async (email:string, password:string) => {
   try {
     const res = await signInWithEmailAndPassword(auth, email, password);
       console.log(res.user);
+      swal(`Welcome to ${res.user} `)
+
   } catch (err:any) {
     console.error(err);
     alert(err.message);
   }
 };
 const registerWithEmailAndPassword = async (name:string,email:string, password:string, ) => {
-    debugger;
+  
   try {
-      debugger;
     const res = await createUserWithEmailAndPassword(auth, email, password);
     console.log(res.user);
-    debugger;
     //קבלת טוקן
 // asnyc function callMyAPI() {
 //   const token = await firebase.auth().currentUser.getIdToken()

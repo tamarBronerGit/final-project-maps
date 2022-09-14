@@ -47,10 +47,9 @@ export const getSystems=async(managerUid:string)=>
     }
 }
 export const getSystemsByUrlName = async (urlName: string) => {
-debugger
     try {
-        debugger
         const system = await axios.get(`http://localhost:3333/system/getSystemByUrlName/${urlName}`)
+        console.log(system.data);
         return system.data;
     } catch (error) {
         console.error(error);
@@ -78,9 +77,11 @@ class Store{
         this.systems=await getSystems(managerUid);
         return this.systems;
     }
-    async getSystemsByUrlName(urlName: string): Promise<System> {
-        this.system = await getSystemsByUrlName(urlName);
-        return this.system;
+    async getSystemsByUrlName(urlName: string): Promise<System[]> {
+       const asa=await getSystemsByUrlName(urlName);
+        console.log(asa);
+        this.system = asa;
+        return asa;
     }
     async addNewSystem(dataSystem:any ):Promise<System>
     {

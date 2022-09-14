@@ -1,5 +1,6 @@
 import axios from "axios";
 import { makeAutoObservable } from 'mobx';
+import Location from "../interfaces/Location";
 
  
 const getLocations = async () => {
