@@ -89,7 +89,7 @@ export function FormDialogLocation() {
     return (
         <div>
             <Stack spacing={2} direction="row">
-                <Button variant="contained" onClick={() => { handleClickOpen() }}>Click to Add system </Button>
+                <Button variant="contained" onClick={() => { handleClickOpen() }}>Click to Add Location </Button>
             </Stack>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Add new location</DialogTitle>

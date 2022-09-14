@@ -15,36 +15,35 @@ import System from '../../interfaces/System';
 
 
 export default function EditSystem() {
-  let s = {
-    topic: "*",
-    urlName: "*",
-    urlImage: "*",
-    objectName: "*",
-    managerUid: "*",
-    description: "*",
-  };
-  const [system, setSystem] = useState<System>();
+
+  const [systems, setSystems] = useState<System[]>([]);
+
+  const getAllSystem = async () => {
+    const data = await systemStore.getAllSystemFromServer();
+    console.log(data);
+    if(data) setSystems(data);
+}
+  const [system, setSystem] = useState<System>({} as any);
   const {name} =useParams();
 
     useEffect(() => {
-        ShowDetails(name||'');
+      getAllSystem();
+      ShowDetails(name||'');
     }, []);
 
     const ShowDetails=async (name:string) => {
-         
       
       const sysStore= await systemStore.getSystemsByUrlName(name);
       if(sysStore) {
-        setSystem(sysStore);
+        setSystem(sysStore[0]);
       console.log(sysStore);
       }
-      
-      
     }
-    debugger
-    if(system)
+    
+    // if(system)
   return (
     <Card sx={{ maxWidth: 345 }} >
+                    {/* {systems.map((sys)=>{if(sys._id==system?._id) return(  */}
                     <CardContent>
                     {/* <AspectRatio minHeight="120px" maxHeight="200px" sx={{ my: 2 }}>
                     <img src="{`$system.urlImage`}" alt="" />
@@ -59,12 +58,7 @@ export default function EditSystem() {
                             <div className="mb-3">
                                 <Typography >topic:  {system.description}</Typography>
                             </div>
-                            <div className="mb-3">
-                                {/* <Typography >urlName:   {system.urlName}</Typography> */}
-                            </div>
-                            {/* <div className="mb-3">
-                                <Typography >urlImage:   {system.urlImage}</Typography>
-                            </div> */}
+                           
                             <div className="mb-3">
                                 <Typography >objectName:   {system.subject}</Typography>
                             </div>
@@ -76,11 +70,10 @@ export default function EditSystem() {
                             </div>
                            
                             <div className="d-grid">
-                                {/* <Button onClick={Delete} startIcon={<DeleteIcon />}></Button>
-                                <Button onClick={() => setEdit(true)} startIcon={<ModeEditOutlineIcon />}></Button> */}
                             </div>
                         </form>
                     </CardContent>
+                    {/* )})} */}
                 </Card>
   );
   return(

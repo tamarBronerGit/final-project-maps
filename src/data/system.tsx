@@ -77,9 +77,11 @@ class Store{
         this.systems=await getSystems(managerUid);
         return this.systems;
     }
-    async getSystemsByUrlName(urlName: string): Promise<System> {
-        this.system = await getSystemsByUrlName(urlName);
-        return this.system;
+    async getSystemsByUrlName(urlName: string): Promise<System[]> {
+       const asa=await getSystemsByUrlName(urlName);
+        console.log(asa);
+        this.system = asa;
+        return asa;
     }
     async addNewSystem(dataSystem:any ):Promise<System>
     {

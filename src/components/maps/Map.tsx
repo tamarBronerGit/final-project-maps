@@ -9,12 +9,17 @@ import axios from "axios";
 import { Button } from "@mui/material";
 import { FormDialogLocation } from "../admin/addLocation";
 import { CheckBox } from "@mui/icons-material";
+import locationStore from "../../data/location";
+import Location from "../../interfaces/Location";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectiosResult = google.maps.DirectionsResult;
 type MapOptions = google.maps.MapOptions;
 
 export default function Map() {
+
+  const [locations,setLocations]= useState<Location[]>([]);
+
     const pinColor='#000000';
     // const [office,setOffice]=useState<LatLngLiteral|any>()
     const [office, setOffice] = useState<LatLngLiteral|any>();
@@ -37,6 +42,7 @@ export default function Map() {
     console.log(houses.map(element => element.lat));
     
     useEffect(() => {
+      getAllLocations();
       navigator.geolocation.getCurrentPosition(function(position){
       setOffice({lat:position.coords.latitude,lng:position.coords.longitude});
     })
@@ -59,6 +65,16 @@ export default function Map() {
         )
     }
 
+    const getAllLocations= async () => {
+      const locations= await locationStore.getLocations();
+      console.log(locations);
+      if(locations) setLocations(locations);
+    }
+
+    const enterLocation=()=>{
+      console.log("Entering location");
+    }
+
   return <div className="container">
     <Grid container spacing={2}>
     <Grid item xs={20} md={20}>
@@ -78,7 +94,7 @@ export default function Map() {
                     strokeWeight:5,
                     },
                  }}/>)}
-
+                 
                 {office && (
                     <>
                        <Marker position={office} />
@@ -117,10 +133,15 @@ export default function Map() {
                 }} />
                 {!office && <p>Enter the address of you</p>}
                 {directions&&<Distance leg={directions.routes[0].legs[0]}/>}
+                
                 {/*באופשן... כאן צריך לעבור על כל הנקודות, ולהציג לכל נקודה פרטים */}
-                <select name="test" id="test" value="enter location">
-                  <option value="one">one</option>
-                  <option value="two">two</option>
+                <select name="test" id="test"  placeholder="Enter location">
+                {locations.map(location=>{
+                  return(
+                    <option onClick={enterLocation}>{location.name}</option>
+                  )
+                })}
+                  
                 </select>
                 <FormDialogLocation/>
         </div></Grid>
