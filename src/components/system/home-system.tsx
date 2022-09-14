@@ -44,14 +44,17 @@ const Home = () => {
      
     const isManager=async ()=>{
       if(user?.uid){
-        const userCome= UserStore.getById(user?.uid); 
+        const userCome= await UserStore.getById(user?.uid); 
         const _id=(await userCome)._id;
         if(_id) {
             const manager= await managerStore.getManager(_id);
-            const onOwner=(await manager).system_id;
-            const manager_id=(await manager).user_id;
+            manager.map(async(mng)=>{
+                const onOwner=(await mng).system_id;
+            const manager_id=(await mng).user_id;
             setManager(manager_id);
             setOwner(onOwner);
+            })
+            
         }
      }
     }

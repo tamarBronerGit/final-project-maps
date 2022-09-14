@@ -16,6 +16,7 @@ import { observer } from "mobx-react";
 import systemStore from "../../data/system";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import locationStore from "../../data/location";
 
 const MyHome = () => {
     const navigate = useNavigate();
@@ -41,6 +42,18 @@ const MyHome = () => {
     const DeleteSystem= async (id:string) => {
         
          systemStore.DeleteSystemFromServer(id);
+    }
+    const getLoactionSystem= async (system:System) => {
+        
+        const data= await locationStore.getLocationsBySystemId(system._id);
+        if(data) 
+       await data.forEach((d)=>alert(`location's details:
+                                    \n name: ${d.name},
+                                    \n lat: ${d.location_geolocation.lat}
+                                    \n len: ${d.location_geolocation.len}
+                                    \n communication_details: ${d.communication_details.email}
+                                     / ${d.communication_details.phone}
+                                    \n See you! 😀 `));
     }
 
 
@@ -68,7 +81,8 @@ const MyHome = () => {
                             </CardContent>
                             <CardActions>
                                 <Button size="small" onClick={()=> navigate(`/EditSystem/${system.subject}/${system._id}`)}>Show details</Button>
-                                
+                                <Button size="small" onClick={()=>getLoactionSystem(system)}>Show locations details</Button>
+
                                 {/* { (this.state.isAdmin || this.state.ownerOf === system.systemId ) && (<Button ....> delete </Button>)} */}
                                 {/* {(isOwner===system._id)&&} */}
                                 <Button size="small" onClick={()=>DeleteSystem(system._id)}>Delete this system</Button>

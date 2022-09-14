@@ -25,12 +25,14 @@ export const createManager = async (manager:Manager) => {
 class Store{
 
     manager:Manager|any=null;
+    managers:Manager[]=[];
+
     constructor(){
         makeAutoObservable(this);
     }
-    async getManager(managerId:string):Promise<Manager>{
-        this.manager = await getManager(managerId);
-        return this.manager;
+    async getManager(managerId:string):Promise<Manager[]>{
+        this.managers = await getManager(managerId);
+        return this.managers;
     }
     async createManager(manager:Manager):Promise<Manager>{
         this.manager = await createManager(manager);
