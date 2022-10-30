@@ -11,7 +11,8 @@ import { FormDialogLocation } from "../admin/addLocation";
 import { CheckBox } from "@mui/icons-material";
 import locationStore from "../../data/location";
 import Location from "../../interfaces/Location";
-
+import { useNavigate } from "react-router-dom";
+// import Track from '../track/Track';
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectiosResult = google.maps.DirectionsResult;
 type MapOptions = google.maps.MapOptions;
@@ -19,7 +20,7 @@ type MapOptions = google.maps.MapOptions;
 export default function Map() {
 
   const [locations,setLocations]= useState<Location[]>([]);
-
+  const navigate = useNavigate();
     const pinColor='#000000';
     // const [office,setOffice]=useState<LatLngLiteral|any>()
     const [office, setOffice] = useState<LatLngLiteral|any>();
@@ -64,7 +65,10 @@ export default function Map() {
             }
         )
     }
-
+    const navigateToTracks=()=>{
+      alert("navigate to tracks");
+      navigate(`/track`);
+    }
     const getAllLocations= async () => {
       const locations= await locationStore.getLocations();
       console.log(locations);
@@ -76,6 +80,7 @@ export default function Map() {
     }
 
   return <div className="container">
+    
     <Grid container spacing={2}>
     <Grid item xs={20} md={20}>
                 <MenuAppBar/>
@@ -144,6 +149,8 @@ export default function Map() {
                   
                 </select>
                 <FormDialogLocation/>
+                <Button variant="contained" onClick={navigateToTracks}>Click to Add Track </Button>
+                {/* <Button variant="contained" onClick={navigateToTracks}>Click to Add Track </Button> */}
         </div></Grid>
     </Grid>
 
